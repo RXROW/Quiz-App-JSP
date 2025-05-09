@@ -2,7 +2,7 @@
  
  const AuthLayouts = () => {
    return (
-     <div>AuthLayouts</div>
+     <div>AuthLayouts </div>
    )
  }
  
