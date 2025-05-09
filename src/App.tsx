@@ -9,6 +9,7 @@ import ForgotPassword from './modules/Auth/Forgot Password/ForgotPassword';
 import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 
+
 const router = createBrowserRouter([
   {
     path: '/',

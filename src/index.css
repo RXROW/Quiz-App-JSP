@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.auth-title{
+  color: #C5D86D;
+}
