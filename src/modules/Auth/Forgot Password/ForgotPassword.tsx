@@ -25,7 +25,7 @@ const ForgotPassword: React.FC = () => {
   const onSubmit = async (data: User) => {
     try {
       const response = await publicInstance.post(AUTH.FORGOT_PASSWORD, data);
-      toast.success("Password changed successfully!");
+      toast.success("OTp Send Check mail !");
       navigate("/reset-password");
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error changing password");
