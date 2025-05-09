@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicInstance } from "../../../services/apis/apisConfig";
 import { AUTH } from "../../../services/apis/apisUrls";
-
+import { useNavigate } from "react-router-dom";
 export type User = {
   password: string;
   email: string;
@@ -27,7 +27,8 @@ const ResetPassword: React.FC = () => {
     },
   });
 
-  const password_new = watch("password_new");
+  const navigate = useNavigate();
+  
   const [showPassword, setShowPassword] = useState({
     password: false,
     password_new: false,
@@ -42,6 +43,7 @@ const ResetPassword: React.FC = () => {
     try {
       const response = await publicInstance.post(AUTH.RESET_PASSWORD, data);
       toast.success("register changed successfully!");
+      navigate("/login");
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Error To register");
     }
