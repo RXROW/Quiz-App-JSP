@@ -2,7 +2,7 @@
  
  const Navbar = () => {
    return (
-     <div>Navbar</div>
+     <div className='bg-amber-700'>Navbar</div>
    )
  }
  

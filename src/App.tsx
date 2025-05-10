@@ -9,6 +9,8 @@ import ForgotPassword from './modules/Auth/Forgot Password/ForgotPassword';
 import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
+import Dashboard from './modules/Dashboard/Dashboard';
 
 
 const router = createBrowserRouter([
@@ -26,6 +28,14 @@ const router = createBrowserRouter([
       { path: 'change-password', element: <ChangePassword /> },
     ],
   },
+  {
+    path: '/dashboard',
+    element: <MasterAdminLayout />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, element: <Dashboard /> },
+    ],
+  }
 ]);
 
 const App = () => {
