@@ -8,8 +8,11 @@ import Register from './modules/Auth/Register/Register';
 import ForgotPassword from './modules/Auth/Forgot Password/ForgotPassword';
 import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
+import { ToastContainer } from 'react-toastify';
+
 
 const router = createBrowserRouter([
+  
   {
     path: '/',
     element: <AuthLayouts />,
@@ -26,7 +29,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+ 
+  return<>
+    <ToastContainer/>
+    <RouterProvider router={router} />
+  </>
 };
 
 export default App;
