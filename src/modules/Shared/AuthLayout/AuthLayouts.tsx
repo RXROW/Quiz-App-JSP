@@ -10,11 +10,11 @@ export default function AuthLayouts() {
       ? "border-[4px] border-[#C5D86D] text-"
       : location.pathname === "/"
       ? "border-[4px] border-[#C5D86D] text-(--color-auth)"
-      : "";
+      : "text-white ";
   const Register =
     location.pathname === "/register"
       ? "border-[4px] border-[#C5D86D] text-(--color-auth)"
-      : "";
+      : "text-white ";
   const getPageTitle = () => {
     switch (location.pathname) {
       case "/login":
@@ -46,7 +46,7 @@ export default function AuthLayouts() {
                 <div className="my-10 flex gap-8" key={item}>
                   <Link to="/login">
                     <div
-                      className={`flex h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333] text-white shadow ${Login}`}
+                      className={`flex h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333]  shadow ${Login}`}
                     >
                       <IoPersonSharp className="text-6xl" />
                       <span className="font-bold capitalize">sign in</span>
@@ -54,7 +54,7 @@ export default function AuthLayouts() {
                   </Link>
                   <Link to="/register">
                     <div
-                      className={`flex  h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333] text-white shadow ${Register}`}
+                      className={`flex  h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333] shadow ${Register}`}
                     >
                       <IoPersonAdd className="text-6xl" />
                       <span className="font-bold capitalize"> Sign Up</span>

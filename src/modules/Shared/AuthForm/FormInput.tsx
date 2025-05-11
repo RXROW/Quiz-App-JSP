@@ -6,12 +6,14 @@ export const FormInput = ({
   type,
   rules,
   placeholder,
+  disabled = false,
 }: {
   name: string;
   label: string;
   type: string;
   rules: any;
   placeholder: string;
+  disabled?: boolean;
 }) => {
   function getIcon() {
     switch (type) {
@@ -30,26 +32,42 @@ export const FormInput = ({
   } = useFormContext();
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-6">
         <label
           htmlFor={name}
-          className="mb-2 block text-sm font-medium text-white"
+          className="mb-3 block text-sm font-medium text-white"
         >
           {label}
         </label>
-        <div className="flex w-3/4 items-center justify-start rounded-lg border border-white bg-black p-2.5">
-          <span className="text-2xl mr-2 text-white">{getIcon()}</span>
-          <input
-            type={type}
-            placeholder={placeholder}
-            className="outline-none autofill:bg-transparent w-full border-0 bg-transparent py-0 text-sm text-white placeholder:text-gray-600"
-            {...register(name, rules)}
-          />
+        <div className="flex items-center justify-start rounded-lg border border-white bg-black p-2.5">
+          <span className="text-2xl text-white">{getIcon()}</span>
+          {name === "role" ? (
+            <select
+              id={name}
+              className="w-full border-0 bg-black text-white"
+              {...register(name, rules)}
+            >
+              <option value="">Select Role</option>
+              <option value="Instructor" className="bg-black text-white">
+                Instructor
+              </option>
+              <option value="Student" className="bg-black text-white">
+                Student
+              </option>
+            </select>
+          ) : (
+            <input
+              id={name}
+              type={type}
+              placeholder={placeholder}
+              className="flex-1 border-0 bg-transparent py-0 text-sm text-white placeholder:text-gray-600"
+              {...register(name, rules)}
+              disabled={disabled}
+            />
+          )}
         </div>
         {errors[name] && (
-          <span className="text-red-700">
-            {errors[name]?.message?.toString()}
-          </span>
+          <span className="text-red-700"> {errors[name]?.message}</span>
         )}
       </div>
     </>

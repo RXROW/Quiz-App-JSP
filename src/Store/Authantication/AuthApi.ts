@@ -2,9 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, AUTH } from "../../services/apis/apisUrls";
 
 export const AuthApiSlice = createApi({
-  reducerPath: "auth",
+  reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().auth.token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     login: builder.mutation({
@@ -25,7 +32,7 @@ export const AuthApiSlice = createApi({
       query: (email) => ({
         url: AUTH.FORGOT_PASSWORD,
         method: "POST",
-        body: { email },
+        body: email,
       }),
     }),
     resetPassword: builder.mutation({
@@ -38,9 +45,8 @@ export const AuthApiSlice = createApi({
     changePassword: builder.mutation({
       query: (data) => ({
         url: AUTH.CHANGE_PASSWORD,
-        method: "PUT",
+        method: "POST",
         body: data,
-        credentials: "include",
       }),
     }),
   }),

@@ -2,17 +2,14 @@ import { FormInput } from "../../Shared/AuthForm/FormInput";
 import ReusableForm from "../../Shared/AuthForm/ReusableForm";
 import { FormProvider, useForm } from "react-hook-form";
 import ButtonForm from "../../Shared/AuthForm/ButtonForm";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { getValidationRules } from "../../../hook/usevalidations";
 import { useLoginMutation } from "../../../Store/Authantication/AuthApi";
-import { setLogin } from "../../../Store/Authantication/AuthSlice";
 import { Link } from "react-router-dom";
 import { LoginData } from "../../../interfaces/authInterfaces";
 const Login = () => {
   const { email, password } = getValidationRules();
   const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
   const methods = useForm({
     defaultValues: {
       email: "",
@@ -23,12 +20,6 @@ const Login = () => {
   const onSubmit = async (data: LoginData) => {
     try {
       const response = await login(data).unwrap();
-      dispatch(
-        setLogin({
-          token: response.data.accessToken,
-          user: response.data.profile,
-        })
-      );
       toast.success(response.message);
     } catch (error: any) {
       toast.error(error.data?.message || "Check Your internet");
