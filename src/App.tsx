@@ -1,6 +1,5 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from './modules/Shared/NotFound/NotFound';
 import AuthLayouts from './modules/Shared/AuthLayout/AuthLayouts';
 import Login from './modules/Auth/Login/Login';
@@ -13,19 +12,20 @@ import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/Mas
 import Dashboard from './modules/Dashboard/Dashboard';
 
 
+
 const router = createBrowserRouter([
   
   {
-    path: '/',
+    path: "/",
     element: <AuthLayouts />,
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Login /> },
-      { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
-      { path: 'forget-password', element: <ForgotPassword /> },
-      { path: 'reset-password', element: <ResetPassword /> },
-      { path: 'change-password', element: <ChangePassword /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
+      { path: "forget-password", element: <ForgotPassword /> },
+      { path: "reset-password", element: <ResetPassword /> },
+      { path: "change-password", element: <ChangePassword /> },
     ],
   },
   {
@@ -39,11 +39,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
- 
   return<>
     <ToastContainer/>
     <RouterProvider router={router} />
   </>
+
 };
 
 export default App;
