@@ -11,8 +11,8 @@ interface DeleteConfirmationModalProps {
 
 const DeleteConfirmation: React.FC<DeleteConfirmationModalProps> = ({
   isOpen,
-  title = "Delete Confirmation",
-  message = "Are you sure you want to delete this item?",
+  title ,
+  message,
   onConfirm,
   onCancel,
 }) => {
@@ -21,7 +21,6 @@ const DeleteConfirmation: React.FC<DeleteConfirmationModalProps> = ({
   return (
 <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000040]">
   <div className="relative bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden border border-gray-200">
-    {/* Header with full-width bottom border */}
     <div className="flex items-center justify-between border-b w-full">
       <h2 className="text-lg font-semibold text-black px-4 ">
         Delete Group
@@ -41,8 +40,6 @@ const DeleteConfirmation: React.FC<DeleteConfirmationModalProps> = ({
         </button>
       </div>
     </div>
-
-    {/* Message/body */}
     {message && (
       <div className="px-6 py-6 text-gray-800 min-h-[200px]">
         {message}
