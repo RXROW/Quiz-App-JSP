@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
-import { useChangePasswordMutation } from '../../../Redux/Api/AuthApi';
+import { useChangePasswordMutation } from '../../../Store/Authantication/AuthApi';
 
 export type User = {
   password: string;
