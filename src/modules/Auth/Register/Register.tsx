@@ -1,20 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { AXIOS_INSTANCE, AUTH } from '../../../services/apis/apisUrls';
-import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
 import { toast } from 'react-toastify';
-
-type RegisterFormData = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  role: string;
-  password: string;
-};
+import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
+import { RegisterFormData } from '../../../interfaces/authInterfaces';
+import { useRegisterMutation } from '../../../Store/Authantication/AuthApi';
 
 const Register: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [registerUser, { isLoading }] = useRegisterMutation();
 
   const toggleVisibility = () => {
     setShowPassword(!showPassword);
@@ -29,10 +23,10 @@ const Register: React.FC = () => {
         role: data.role,
         password: data.password,
       };
-      await AXIOS_INSTANCE.post(AUTH.REGISTER, payload);
+      await registerUser(payload).unwrap();
       toast.success('Registration successful!');
     } catch (error: any) {
-      const errorMessages = error?.response?.data?.message || ['Error registering'];
+      const errorMessages = error?.data?.message || ['Error registering'];
       if (Array.isArray(errorMessages)) {
         errorMessages.forEach((msg: string) => toast.error(msg));
       } else {
@@ -111,9 +105,10 @@ const Register: React.FC = () => {
       />
       <button
         type="submit"
-        className="flex items-center gap-1 text-black bg-[#F5F5F5] hover:bg-gray-200 font-medium rounded-lg text-sm px-5 py-3 cursor-pointer"
+        disabled={isLoading}
+        className="flex items-center gap-1 text-black bg-[#F5F5F5] hover:bg-gray-200 font-medium rounded-lg text-sm px-5 py-3 cursor-pointer disabled:opacity-50"
       >
-        Sign Up <i className="fas fa-check-circle text-black text-lg " />
+        {isLoading ? 'Signing Up...' : 'Sign Up'} <i className="fas fa-check-circle text-black text-lg" />
       </button>
     </form>
   );
