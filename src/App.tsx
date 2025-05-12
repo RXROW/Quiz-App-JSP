@@ -10,6 +10,10 @@ import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard';
+import Quizzes from "./modules/Instructors/Quizzes/Quizzes";
+import Groups from "./modules/Instructors/Groups/Groups";
+import Questions from "./modules/Instructors/Questions/Questions";
+import Student from "./modules/Instructors/Student/Student";
 
 
 
@@ -34,6 +38,11 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Dashboard /> },
+      { path: "quizzes", element: <Quizzes /> },
+      { path: "groups", element: <Groups /> },
+      { path: "questions", element: <Questions /> },
+      { path: "student", element: <Student /> },
+      
     ],
   }
 ]);
