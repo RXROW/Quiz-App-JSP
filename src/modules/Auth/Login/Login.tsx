@@ -5,11 +5,12 @@ import ButtonForm from "../../Shared/AuthForm/ButtonForm";
 import { toast } from "react-toastify";
 import { getValidationRules } from "../../../hook/usevalidations";
 import { useLoginMutation } from "../../../Store/Authantication/AuthApi";
-import { Link } from "react-router-dom";
 import { LoginData } from "../../../interfaces/authInterfaces";
+import { Link, useNavigate } from "react-router";
 const Login = () => {
   const { email, password } = getValidationRules();
   const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {
       email: "",
@@ -20,9 +21,11 @@ const Login = () => {
   const onSubmit = async (data: LoginData) => {
     try {
       const response = await login(data).unwrap();
+      navigate("/dashboard");
       toast.success(response.message);
-    } catch (error: any) {
-      toast.error(error.data?.message || "Check Your internet");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.data.message || "Ckeck Your internet");
     }
   };
   return (
