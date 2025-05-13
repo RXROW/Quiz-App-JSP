@@ -33,3 +33,11 @@ export interface ResetData {
   confirmPassword: string;
   seed: string;
 }
+
+export interface RegisterFormData {
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: string;
+  password: string;
+}
