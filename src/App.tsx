@@ -10,15 +10,10 @@ import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard';
-import TestDelete from "./modules/Shared/DeleteConfirmation/TestDelete";
 
 
 
 const router = createBrowserRouter([
- {
-    path: "/test-delete",
-    element: <TestDelete />
- },
 
   {
     path: "/",
