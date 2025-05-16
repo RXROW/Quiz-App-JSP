@@ -1,3 +1,4 @@
+
  import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Logo from '../../../assets/Logo-white.png'
@@ -49,4 +50,4 @@ const AuthLayouts = () => {
    )
  }
  
- export default AuthLayouts
+
