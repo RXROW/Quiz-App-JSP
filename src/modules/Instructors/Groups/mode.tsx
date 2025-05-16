@@ -1,3 +1,4 @@
+import { CheckIcon, XIcon } from 'flowbite-react';
 import React from 'react';
 
 const Modalrr = ({ isOpen, onClose, onSubmit, children, title }) => {
@@ -11,15 +12,15 @@ const Modalrr = ({ isOpen, onClose, onSubmit, children, title }) => {
           <div className="flex items-center">
             <button
               onClick={onSubmit}
-              className="w-10 h-10 flex items-center justify-center border border-gray-300 hover:bg-gray-100"
+          className="px-4 py-3 hover:bg-gray-100  text-black flex items-center justify-center border-l border-black"
             >
-              ✔
+               <CheckIcon className="w-5 h-5" />
             </button>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center border border-gray-300 hover:bg-gray-100"
+          className="px-4 py-3 hover:bg-gray-100  text-black flex items-center justify-center border-l border-black"
             >
-              ✖
+            <XIcon className="w-5 h-5" />
             </button>
           </div>
         </div>
