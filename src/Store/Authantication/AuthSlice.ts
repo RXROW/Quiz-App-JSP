@@ -21,9 +21,14 @@ const authSlice = createSlice({
     builder.addMatcher(
       AuthApiSlice.endpoints.login.matchFulfilled,
       (state, action) => {
-        state.token = action.payload.data.accessToken;
-        localStorage.setItem("token", action.payload.data.accessToken);
-        state.user = action.payload.data.user;
+        console.log(" Login payload:", action.payload); 
+        const token = action.payload.accessToken;
+        const user = action.payload.user;
+
+        state.token = token;
+        state.user = user;
+
+        localStorage.setItem("token", token);
       }
     );
   },

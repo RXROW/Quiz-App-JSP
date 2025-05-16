@@ -16,7 +16,8 @@ const Groups = () => {
     const fetchGroups = async () => {
       try {
         const response = await privateInstance.get(GROUP.GET_ALL);
-        setGroups(response.data?.data);
+        console.log(response);
+        setGroups(response.data);
       } catch (error) {
         console.error("Error fetching groups:", error);
       }
@@ -25,14 +26,12 @@ const Groups = () => {
     fetchGroups();
   }, []);
 
-  // Fetch students
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await privateInstance.get(
-          STUDENT.GET_ALL_WITHOUT_GROUP
-        );
-        setStudents(response.data?.data);
+        const response = await privateInstance.get(STUDENT.GET_ALL);
+        console.log("Student", response);
+        setStudents(response.data);
       } catch (error) {
         console.error("Error fetching students:", error);
       }
@@ -53,7 +52,6 @@ const Groups = () => {
       setNewGroupName("");
       setSelectedStudents([]);
 
-      // Refresh groups after adding
       const refreshed = await privateInstance.get(GROUP.GET_ALL);
       setGroups(refreshed.data?.data);
     } catch (error) {
@@ -112,11 +110,12 @@ const Groups = () => {
               </span>
               <input
                 type="text"
+                onChange={(e) => setNewGroupName(e.target.value)}
                 className="flex-1 px-4 py-2 text-sm outline-none"
                 placeholder=""
               />
             </div>
-            <div className="flex overflow-hidden rounded-md border border-gray-300 w-full h-10">
+            <div className="flex overflow-hidden rounded-md border border-gray-300 w-full h-30">
               <span className="bg-[#FFEBDD] px-4 py-2 text-sm text-black whitespace-nowrap">
                 List Students
               </span>
@@ -130,11 +129,13 @@ const Groups = () => {
                 }
                 className="flex-1 px-4 py-2 text-sm outline-none h-full"
               >
-                {students.map((student) => (
-                  <option key={student.id} value={student.id}>
-                    {student.name}
-                  </option>
-                ))}
+                {students
+                  .filter((student) => !student.group) // فقط الطلاب اللي مش في جروب
+                  .map((student) => (
+                    <option key={student.id} value={student.id}>
+                      {student.name}
+                    </option>
+                  ))}
               </select>
             </div>
           </div>
