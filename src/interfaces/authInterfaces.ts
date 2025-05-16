@@ -41,3 +41,14 @@ export interface RegisterFormData {
   role: string;
   password: string;
 }
+export interface Student {
+  _id: string;
+  first_name: string;
+  group?: string; 
+}
+
+export interface Group {
+  _id: string;
+  name: string;
+  students: Student[] | string[]; 
+}

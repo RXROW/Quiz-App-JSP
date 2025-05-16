@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Pencil, Trash2, PlusCircle } from "lucide-react";
 import { privateInstance } from "../../../services/apis/apisConfig";
 import { GROUP, STUDENT } from "../../../services/apis/apisUrls";
-import Modalrr from "./mode";
+import ModalGroup from "./mode";
+import { Group, Student } from "../../../interfaces/authInterfaces";
+import { useNavigate } from "react-router-dom";
 
 const Groups = () => {
-  const [groups, setGroups] = useState([]);
+  const [groups, setGroups] = useState<Group[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newGroupName, setNewGroupName] = useState("");
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState<Student[]>([]);
+  const [editingGroup, setEditingGroup] = useState<Group | null>(null);
 
-  // Fetch groups
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchGroups = async () => {
       try {
         const response = await privateInstance.get(GROUP.GET_ALL);
-        console.log(response);
         setGroups(response.data);
       } catch (error) {
         console.error("Error fetching groups:", error);
@@ -30,7 +33,6 @@ const Groups = () => {
     const fetchStudents = async () => {
       try {
         const response = await privateInstance.get(STUDENT.GET_ALL);
-        console.log("Student", response);
         setStudents(response.data);
       } catch (error) {
         console.error("Error fetching students:", error);
@@ -40,22 +42,61 @@ const Groups = () => {
     if (isModalOpen) fetchStudents();
   }, [isModalOpen]);
 
+  // فتح المودال لإنشاء جروب جديد
+  const openAddModal = () => {
+    setEditingGroup(null);
+    setNewGroupName("");
+    setSelectedStudents([]);
+    setIsModalOpen(true);
+  };
+
+  // فتح المودال لتعديل جروب موجود
+  const handleEditGroup = (group: Group) => {
+    setEditingGroup(group);
+    setNewGroupName(group.name);
+    setSelectedStudents(group.students); 
+    setIsModalOpen(true);
+  };
+
+  // إنشاء جروب جديد
   const handleAddGroup = async () => {
     try {
-      const res = await privateInstance.post(GROUP.CREATE_GROUP, {
+      await privateInstance.post(GROUP.CREATE_GROUP, {
         name: newGroupName,
         students: selectedStudents,
       });
-
-      console.log("Group created:", res.data);
       setIsModalOpen(false);
-      setNewGroupName("");
-      setSelectedStudents([]);
-
-      const refreshed = await privateInstance.get(GROUP.GET_ALL);
-      setGroups(refreshed.data?.data);
+      refreshGroups();
     } catch (error) {
       console.error("Error creating group:", error);
+    }
+  };
+
+  // تحديث جروب موجود
+  const handleUpdateGroup = async () => {
+    if (!editingGroup) return;
+
+    try {
+      await privateInstance.put(GROUP.UPDATE_GROUP(editingGroup._id), {
+        name: newGroupName,
+        students: selectedStudents,
+      });
+      setIsModalOpen(false);
+      setEditingGroup(null);
+      refreshGroups();
+    } catch (error) {
+      console.error("Error updating group:", error);
+    }
+  };
+
+  const refreshGroups = async () => {
+    try {
+      const refreshed = await privateInstance.get(GROUP.GET_ALL);
+      setGroups(refreshed.data);
+      setNewGroupName("");
+      setSelectedStudents([]);
+    } catch (error) {
+      console.error("Error refreshing groups:", error);
     }
   };
 
@@ -63,7 +104,7 @@ const Groups = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 relative">
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="absolute top-4 right-4 flex items-center gap-1 text-black bg-white px-4 py-1 rounded-full border border-black"
         >
           <PlusCircle size={18} />
@@ -85,7 +126,10 @@ const Groups = () => {
                 </p>
               </div>
               <div className="flex gap-3">
-                <button className="text-gray-600 hover:text-blue-600">
+                <button
+                  className="text-gray-600 hover:text-blue-600"
+                  onClick={() => handleEditGroup(group)}
+                >
                   <Pencil size={18} />
                 </button>
                 <button className="text-gray-600 hover:text-red-600">
@@ -96,12 +140,16 @@ const Groups = () => {
           ))}
         </div>
 
-        {/* Modal for Add Group */}
-        <Modalrr
+        <ModalGroup
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={handleAddGroup}
-          title="Create Group"
+          onClose={() => {
+            setIsModalOpen(false);
+            setEditingGroup(null);
+            setNewGroupName("");
+            setSelectedStudents([]);
+          }}
+          onSubmit={editingGroup ? handleUpdateGroup : handleAddGroup}
+          title={editingGroup ? "Update Group" : "Create Group"}
         >
           <div className="flex flex-col gap-4">
             <div className="flex overflow-hidden rounded-md border border-gray-300 w-full">
@@ -110,6 +158,7 @@ const Groups = () => {
               </span>
               <input
                 type="text"
+                value={newGroupName}
                 onChange={(e) => setNewGroupName(e.target.value)}
                 className="flex-1 px-4 py-2 text-sm outline-none"
                 placeholder=""
@@ -130,16 +179,23 @@ const Groups = () => {
                 className="flex-1 px-4 py-2 text-sm outline-none h-full"
               >
                 {students
-                  .filter((student) => !student.group) // فقط الطلاب اللي مش في جروب
-                  .map((student) => (
-                    <option key={student.id} value={student.id}>
-                      {student.name}
-                    </option>
-                  ))}
-              </select>
+                  .filter(
+                    (student) =>
+                      !student.group ||
+                      (editingGroup &&
+                        editingGroup.students?.some(
+                          (s) => s._id === student._id
+                        ))
+                  )
+                    .map((student) => (
+                      <option key={student._id} value={student._id}>
+                        {student.first_name}
+                      </option>
+                    ))}
+                </select>
             </div>
           </div>
-        </Modalrr>
+        </ModalGroup>
       </div>
     </div>
   );

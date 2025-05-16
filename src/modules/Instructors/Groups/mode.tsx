@@ -1,7 +1,7 @@
 import { CheckIcon, XIcon } from 'flowbite-react';
 import React from 'react';
 
-const Modalrr = ({ isOpen, onClose, onSubmit, children, title }) => {
+const ModalGroup = ({ isOpen, onClose, onSubmit, children, title }) => {
   if (!isOpen) return null;
 
   return (
@@ -32,4 +32,4 @@ const Modalrr = ({ isOpen, onClose, onSubmit, children, title }) => {
   );
 };
 
-export default Modalrr;
+export default ModalGroup;
