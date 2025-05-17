@@ -5,6 +5,7 @@ import { GROUP, STUDENT } from "../../../services/apis/apisUrls";
 import ModalGroup from "./ModalGroup";
 import { Group, Student } from "../../../interfaces/authInterfaces";
 import { useNavigate } from "react-router-dom";
+import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 
 const Groups = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -13,7 +14,8 @@ const Groups = () => {
   const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
   const [students, setStudents] = useState<Student[]>([]);
   const [editingGroup, setEditingGroup] = useState<Group | null>(null);
-
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [groupToDelete, setGroupToDelete] = useState<Group | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +56,7 @@ const Groups = () => {
   const handleEditGroup = (group: Group) => {
     setEditingGroup(group);
     setNewGroupName(group.name);
-    setSelectedStudents(group.students); 
+    setSelectedStudents(group.students);
     setIsModalOpen(true);
   };
 
@@ -100,6 +102,23 @@ const Groups = () => {
     }
   };
 
+const handleDeleteGroup = async () => {
+  if (!groupToDelete) return;
+
+  try {
+    await privateInstance.delete(GROUP.DELETE_GROUP(groupToDelete._id));
+    setIsDeleteModalOpen(false);
+    setGroupToDelete(null);
+    refreshGroups();
+  } catch (error) {
+    console.error("Error deleting group:", error);
+  }
+};
+  const confirmDeleteGroup = (group: Group) => {
+    setGroupToDelete(group);
+    setIsDeleteModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-5xl mx-auto bg-white rounded-lg shadow p-6 relative">
@@ -132,7 +151,10 @@ const Groups = () => {
                 >
                   <Pencil size={18} />
                 </button>
-                <button className="text-gray-600 hover:text-red-600">
+                <button
+                  className="text-gray-600 hover:text-red-600"
+                  onClick={() => confirmDeleteGroup(group)}
+                >
                   <Trash2 size={18} />
                 </button>
               </div>
@@ -187,16 +209,27 @@ const Groups = () => {
                           (s) => s._id === student._id
                         ))
                   )
-                    .map((student) => (
-                      <option key={student._id} value={student._id}>
-                        {student.first_name}
-                      </option>
-                    ))}
-                </select>
+                  .map((student) => (
+                    <option key={student._id} value={student._id}>
+                      {student.first_name}
+                    </option>
+                  ))}
+              </select>
             </div>
           </div>
         </ModalGroup>
       </div>
+
+      <DeleteConfirmation
+  isOpen={isDeleteModalOpen}
+  onConfirm={handleDeleteGroup}
+  onCancel={() => {
+    setIsDeleteModalOpen(false);
+    setGroupToDelete(null);
+  }}
+  title="Delete Group"
+  message={`Are you sure you want to delete the group "${groupToDelete?.name}"? This action cannot be undone.`}
+/>
     </div>
   );
 };
