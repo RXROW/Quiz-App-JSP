@@ -102,18 +102,18 @@ const Groups = () => {
     }
   };
 
-const handleDeleteGroup = async () => {
-  if (!groupToDelete) return;
+  const handleDeleteGroup = async () => {
+    if (!groupToDelete) return;
 
-  try {
-    await privateInstance.delete(GROUP.DELETE_GROUP(groupToDelete._id));
-    setIsDeleteModalOpen(false);
-    setGroupToDelete(null);
-    refreshGroups();
-  } catch (error) {
-    console.error("Error deleting group:", error);
-  }
-};
+    try {
+      await privateInstance.delete(GROUP.DELETE_GROUP(groupToDelete._id));
+      setIsDeleteModalOpen(false);
+      setGroupToDelete(null);
+      refreshGroups();
+    } catch (error) {
+      console.error("Error deleting group:", error);
+    }
+  };
   const confirmDeleteGroup = (group: Group) => {
     setGroupToDelete(group);
     setIsDeleteModalOpen(true);
@@ -221,15 +221,16 @@ const handleDeleteGroup = async () => {
       </div>
 
       <DeleteConfirmation
-  isOpen={isDeleteModalOpen}
-  onConfirm={handleDeleteGroup}
-  onCancel={() => {
-    setIsDeleteModalOpen(false);
-    setGroupToDelete(null);
-  }}
-  title="Delete Group"
-  message={`Are you sure you want to delete the group "${groupToDelete?.name}"? This action cannot be undone.`}
-/>
+        isOpen={isDeleteModalOpen}
+        onConfirm={handleDeleteGroup}
+        onCancel={() => {
+          setIsDeleteModalOpen(false);
+          setGroupToDelete(null);
+        }}
+        title="Delete Group"
+        message={`Are you sure you want to delete the group "${groupToDelete?.name}"? This action cannot be undone.`}
+      />
+      
     </div>
   );
 };
