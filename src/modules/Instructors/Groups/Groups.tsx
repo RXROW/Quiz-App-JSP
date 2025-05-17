@@ -6,6 +6,7 @@ import ModalGroup from "./ModalGroup";
 import { Group, Student } from "../../../interfaces/authInterfaces";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
+import Pagination from "../../Shared/Pagination/Pagination";
 
 const Groups = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -17,7 +18,15 @@ const Groups = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [groupToDelete, setGroupToDelete] = useState<Group | null>(null);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
+  const totalPages = Math.ceil(groups.length / itemsPerPage);
+
+  const paginatedGroups = groups.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   useEffect(() => {
     const fetchGroups = async () => {
       try {
@@ -133,7 +142,7 @@ const Groups = () => {
         <h2 className="text-xl font-semibold mb-6">Groups list</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {groups.map((group, index) => (
+          {paginatedGroups.map((group, index) => (
             <div
               key={index}
               className="bg-white border border-gray-300 rounded-lg p-4 flex justify-between items-center shadow-sm"
@@ -230,7 +239,11 @@ const Groups = () => {
         title="Delete Group"
         message={`Are you sure you want to delete the group "${groupToDelete?.name}"? This action cannot be undone.`}
       />
-      
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
