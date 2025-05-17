@@ -22,7 +22,7 @@ import Student from "./modules/Instructors/Student/Student";
 
 
 const router = createBrowserRouter([
-  
+
   {
     path: "/",
     element: <AuthLayouts />,
