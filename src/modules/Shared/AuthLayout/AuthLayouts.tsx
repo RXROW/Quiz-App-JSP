@@ -51,3 +51,4 @@ const AuthLayouts = () => {
  }
  
 
+export default AuthLayouts;
