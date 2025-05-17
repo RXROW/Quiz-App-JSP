@@ -41,3 +41,12 @@ export interface RegisterFormData {
   role: string;
   password: string;
 }
+
+export interface User {
+  first_name: string;
+  last_name: string;
+  role: string;
+  email: string;
+  status: string;
+  _id: string;
+}
