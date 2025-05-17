@@ -43,7 +43,7 @@ const Login = () => {
             label="Password"
             name="password"
             type="password"
-            rules={password}
+            // rules={password}
             placeholder={"Type Your Password"}
           />
           <div className="flex w-3/4 items-center justify-between text-white">

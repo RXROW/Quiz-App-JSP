@@ -3,7 +3,8 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "../../../assets/Logo-white.png";
 import authImage from "../../../assets/AuthLogo.png";
 import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
-export default function AuthLayouts() {
+
+ function AuthLayouts() {
 
   const location = useLocation();
   const getPageTitle = () => {
@@ -51,3 +52,4 @@ export default function AuthLayouts() {
  }
  
 
+export default AuthLayouts;
