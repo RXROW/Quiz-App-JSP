@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Pencil, Trash2, PlusCircle } from "lucide-react";
 import { privateInstance } from "../../../services/apis/apisConfig";
 import { GROUP, STUDENT } from "../../../services/apis/apisUrls";
-import ModalGroup from "./mode";
+import ModalGroup from "./ModalGroup";
 import { Group, Student } from "../../../interfaces/authInterfaces";
 import { useNavigate } from "react-router-dom";
 
@@ -42,7 +42,7 @@ const Groups = () => {
     if (isModalOpen) fetchStudents();
   }, [isModalOpen]);
 
-  // فتح المودال لإنشاء جروب جديد
+  // add
   const openAddModal = () => {
     setEditingGroup(null);
     setNewGroupName("");
@@ -50,7 +50,7 @@ const Groups = () => {
     setIsModalOpen(true);
   };
 
-  // فتح المودال لتعديل جروب موجود
+  //edit
   const handleEditGroup = (group: Group) => {
     setEditingGroup(group);
     setNewGroupName(group.name);
@@ -58,7 +58,7 @@ const Groups = () => {
     setIsModalOpen(true);
   };
 
-  // إنشاء جروب جديد
+  // new group
   const handleAddGroup = async () => {
     try {
       await privateInstance.post(GROUP.CREATE_GROUP, {
@@ -72,7 +72,7 @@ const Groups = () => {
     }
   };
 
-  // تحديث جروب موجود
+  // update
   const handleUpdateGroup = async () => {
     if (!editingGroup) return;
 

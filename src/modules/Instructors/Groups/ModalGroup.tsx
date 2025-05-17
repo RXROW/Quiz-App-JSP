@@ -1,7 +1,14 @@
 import { CheckIcon, XIcon } from 'flowbite-react';
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const ModalGroup = ({ isOpen, onClose, onSubmit, children, title }) => {
+interface ModalGroupProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
+  children: ReactNode;
+  title: string;
+}
+const ModalGroup: React.FC<ModalGroupProps>  = ({ isOpen, onClose, onSubmit, children, title }) => {
   if (!isOpen) return null;
 
   return (
