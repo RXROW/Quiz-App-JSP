@@ -8,6 +8,9 @@ import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 
+
+import 'react-toastify/dist/ReactToastify.css';
+
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard';
 import Quizzes from "./modules/Instructors/Quizzes/Quizzes";

@@ -12,7 +12,7 @@ interface DeleteConfirmationModalProps {
 
 const DeleteConfirmation: React.FC<DeleteConfirmationModalProps> = ({
   isOpen,
-  title ,
+  title,
   message,
   onConfirm,
   onCancel,

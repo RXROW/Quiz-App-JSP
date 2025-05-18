@@ -42,6 +42,18 @@ export interface RegisterFormData {
   password: string;
 }
 
+export interface Student {
+  _id: string;
+  first_name: string;
+  group?: string; 
+}
+
+export interface Group {
+  _id: string;
+  name: string;
+  students: Student[] | string[]; 
+
+
 export interface User {
   first_name: string;
   last_name: string;
@@ -49,4 +61,5 @@ export interface User {
   email: string;
   status: string;
   _id: string;
+
 }
