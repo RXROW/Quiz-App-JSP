@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from './modules/Shared/NotFound/NotFound';
 import AuthLayouts from './modules/Shared/AuthLayout/AuthLayouts';
@@ -9,7 +8,9 @@ import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 
+
 import 'react-toastify/dist/ReactToastify.css';
+
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard';
 import Quizzes from "./modules/Instructors/Quizzes/Quizzes";
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       { path: "quizzes", element: <Quizzes /> },
       { path: "groups", element: <Groups /> },
       { path: "questions", element: <Questions /> },
-      { path: "student", element: <Student /> },
+      { path: "students", element: <Student /> },
       
     ],
   }
