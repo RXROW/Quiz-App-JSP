@@ -7,6 +7,18 @@ import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
  function AuthLayouts() {
 
   const location = useLocation();
+    const allowedPaths = ["/", "/login", "/register"];
+
+  const Login =
+    location.pathname === "/login"
+      ? "border-[4px] border-[#C5D86D] text-"
+      : location.pathname === "/"
+      ? "border-[4px] border-[#C5D86D] text-(--color-auth)"
+      : "text-white ";
+  const Register =
+    location.pathname === "/register"
+      ? "border-[4px] border-[#C5D86D] text-(--color-auth)"
+      : "text-white ";
   const getPageTitle = () => {
     switch (location.pathname) {
       case '/login':
@@ -34,6 +46,30 @@ import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
            <h1 className="text-4xl font-bold pb-12">
            {getPageTitle()}
            </h1>
+
+           {allowedPaths.map(
+            (item) =>
+              item === location.pathname && (
+                <div className="my-10 flex gap-8" key={item}>
+                  <Link to="/login">
+                    <div
+                      className={`flex h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333]  shadow ${Login}`}
+                    >
+                      <IoPersonSharp className="text-6xl" />
+                      <span className="font-bold capitalize">sign in</span>
+                    </div>
+                  </Link>
+                  <Link to="/register">
+                    <div
+                      className={`flex  h-[120px] w-[150px] flex-col items-center justify-center rounded-lg bg-[#333333] shadow ${Register}`}
+                    >
+                      <IoPersonAdd className="text-6xl" />
+                      <span className="font-bold capitalize"> Sign Up</span>
+                    </div>
+                  </Link>
+                </div>
+              )
+          )}
 
           <Outlet />
         </div>
