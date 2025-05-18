@@ -1,5 +1,6 @@
 import React from "react";
 import { Check, X } from "lucide-react";
+import Delete from "../../../assets/Questions-amico.png";
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -41,8 +42,11 @@ const DeleteConfirmation: React.FC<DeleteConfirmationModalProps> = ({
       </div>
     </div>
     {message && (
-      <div className="px-6 py-6 text-gray-800 min-h-[200px]">
+      <div className="px-6 text-center py-6 text-gray-800 min-h-[200px]">
+        <img src={Delete} alt="" />
+        <p className="text-[20px]">
         {message}
+        </p>
       </div>
     )}
   </div>

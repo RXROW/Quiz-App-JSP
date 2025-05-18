@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface AddButtonProps {
-  onClick: () => void;
+  onClick?: () => void;
   text?: string;
 }
 
