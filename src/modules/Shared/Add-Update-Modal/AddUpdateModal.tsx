@@ -26,7 +26,7 @@ export default function AddUpdateModal({
             <button
               type="submit"
               onClick={onsubmit}
-              className="border-custom-black border-l-2 p-6 text-xl"
+              className="border-var border-l-2 p-6 text-xl"
             >
               <FaCheck />
             </button>

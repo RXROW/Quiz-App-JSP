@@ -1,9 +1,7 @@
- import React from 'react'
- 
- const ResetPassword = () => {
-   return (
-     <div>ResetPassword</div>
-   )
- }
- 
- export default ResetPassword
+import React from "react";
+import { useResetPasswordMutation } from "../../../Store/ApiStore/Api";
+const ResetPassword = () => {
+  return <div>ResetPassword</div>;
+};
+
+export default ResetPassword;

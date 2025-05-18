@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
-import { useChangePasswordMutation } from '../../../Redux/Api/AuthApi';
-
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import PasswordInput from "../../Shared/PasswordInput/PasswordInput";
+import { useChangePasswordMutation } from "../../../Store/ApiStore/Api";
 export type User = {
   password: string;
   password_new: string;
@@ -19,10 +18,10 @@ const ChangePassword: React.FC = () => {
   } = useForm<User>({
     mode: "onChange",
     defaultValues: {
-      password: '',
-      password_new: '',
-      Confirm_Password: ''
-    }
+      password: "",
+      password_new: "",
+      Confirm_Password: "",
+    },
   });
 
   const [changePassword] = useChangePasswordMutation();
@@ -65,7 +64,9 @@ const ChangePassword: React.FC = () => {
           typeVisible={showPassword.password}
           toggle={() => toggleVisibility("password")}
           error={errors.password?.message}
-          register={register("password", { required: "old password is required" })}
+          register={register("password", {
+            required: "old password is required",
+          })}
         />
         <PasswordInput
           id="password_new"
@@ -73,7 +74,9 @@ const ChangePassword: React.FC = () => {
           typeVisible={showPassword.password_new}
           toggle={() => toggleVisibility("password_new")}
           error={errors.password_new?.message}
-          register={register("password_new", { required: "New password is required" })}
+          register={register("password_new", {
+            required: "New password is required",
+          })}
         />
         <PasswordInput
           id="Confirm_Password"
@@ -83,7 +86,8 @@ const ChangePassword: React.FC = () => {
           error={errors.Confirm_Password?.message}
           register={register("Confirm_Password", {
             required: "Please confirm your new password",
-            validate: (value) => value === password_new || "Passwords do not match"
+            validate: (value) =>
+              value === password_new || "Passwords do not match",
           })}
         />
 

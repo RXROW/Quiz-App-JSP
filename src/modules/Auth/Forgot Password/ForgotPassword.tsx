@@ -1,9 +1,7 @@
-import React from 'react'
-
+import React from "react";
+import { useForgotPasswordMutation } from "../../../Store/ApiStore/Api";
 const ForgotPassword = () => {
-  return (
-    <div>ForgotPassword</div>
-  )
-}
+  return <div>ForgotPassword</div>;
+};
 
-export default ForgotPassword
+export default ForgotPassword;

@@ -60,7 +60,7 @@ export const FormInput = ({
               id={name}
               type={type}
               placeholder={placeholder}
-              className="flex-1 border-0 bg-transparent py-0 text-sm text-white placeholder:text-gray-600"
+              className="flex-1 border-0 bg-transparent outline-0 py-0 text-sm text-white placeholder:text-gray-600"
               {...register(name, rules)}
               disabled={disabled}
             />
