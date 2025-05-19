@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import PasswordInput from "../../Shared/PasswordInput/PasswordInput";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
+import { useNavigate } from 'react-router-dom';
 import { useChangePasswordMutation } from "../../../Store/ApiStore/Api";
 export type User = {
   password: string;
@@ -33,6 +34,9 @@ const ChangePassword: React.FC = () => {
     Confirm_Password: false,
   });
 
+    const navigate = useNavigate();
+
+
   const toggleVisibility = (field: keyof typeof showPassword) => {
     setShowPassword({ ...showPassword, [field]: !showPassword[field] });
   };
@@ -54,6 +58,11 @@ const ChangePassword: React.FC = () => {
       toast.error(error?.data?.message || "Error changing password");
     }
   };
+
+  const handleCancel = () => {
+    navigate(-1); 
+  };
+
 
   return (
     <div className=" p-6 bg-black rounded-lg shadow">
@@ -91,15 +100,22 @@ const ChangePassword: React.FC = () => {
           })}
         />
 
-        <div className="mt-6">
-          <button
-            type="submit"
-            className="flex items-center gap-1 w-fit text-black bg-[#F5F5F5] hover:bg-gray-200 font-medium rounded-lg text-sm px-5 py-3 cursor-pointer"
-            disabled={isSubmitting}
-          >
-            Change <i className="fas fa-check-circle text-black text-lg" />
-          </button>
-        </div>
+        <div className="mt-6 flex justify-between items-center gap-4">
+  <button
+    type="submit"
+    className="flex items-center gap-1 w-fit text-black bg-[#F5F5F5] hover:bg-gray-200 font-medium rounded-lg text-sm px-5 py-3 cursor-pointer"
+    disabled={isSubmitting}
+  >
+    Change <i className="fas fa-check-circle text-black text-lg" />
+  </button>
+
+  <button
+    onClick={handleCancel}
+    className="flex items-center gap-1 w-fit text-gray-700 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-sm px-5 py-3"
+  >
+    Cancel <i className="fas fa-times-circle text-gray-700 text-lg" />
+  </button>
+</div>
       </form>
     </div>
   );
