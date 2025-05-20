@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { publicInstance } from "../../../services/apis/apisConfig";
 import { AUTH } from "../../../services/apis/apisUrls";
 import { useNavigate } from "react-router-dom";
+import { useResetPasswordMutation } from "../../../Store/ApiStore/Api";
 export type User = {
   password: string;
   email: string;

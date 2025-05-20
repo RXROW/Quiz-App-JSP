@@ -4,7 +4,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import ButtonForm from "../../Shared/AuthForm/ButtonForm";
 import { toast } from "react-toastify";
 import { getValidationRules } from "../../../hook/usevalidations";
-import { useLoginMutation } from "../../../Store/Authantication/AuthApi";
+import { useLoginMutation } from "../../../Store/ApiStore/Api";
 import { LoginData } from "../../../interfaces/authInterfaces";
 import { Link, useNavigate } from "react-router";
 const Login = () => {
