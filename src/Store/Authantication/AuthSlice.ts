@@ -1,6 +1,6 @@
 // authSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
-import { AuthApiSlice } from "./AuthApi";
+import { ApiSlice } from "../ApiStore/Api";
 
 const initialState = {
   token: localStorage.getItem("token") || null,
@@ -21,7 +21,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addMatcher(
-      AuthApiSlice.endpoints.login.matchFulfilled,
+      ApiSlice.endpoints.login.matchFulfilled,
       (state, action) => {
         // state.token = action.payload.data.accessToken;
         // localStorage.setItem("token", action.payload.data.accessToken);

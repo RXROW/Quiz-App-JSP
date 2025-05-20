@@ -12,11 +12,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
-import Dashboard from './modules/Dashboard/Dashboard';
-import Quizzes from "./modules/Instructors/Quizzes/Quizzes";
+import Dashboard from './modules/Dashboard/Dashboard'; 
 import Groups from "./modules/Instructors/Groups/Groups";
 import Questions from "./modules/Instructors/Questions/Questions";
 import Student from "./modules/Instructors/Student/Student";
+import Quizes from "./modules/Instructors/Quizzes/Quizzes";
 
 
 
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Dashboard /> },
-      { path: "quizzes", element: <Quizzes /> },
+      { path: "quizzes", element: <Quizes /> },
       { path: "groups", element: <Groups /> },
       { path: "questions", element: <Questions /> },
       { path: "students", element: <Student /> },

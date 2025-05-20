@@ -49,7 +49,7 @@ const SideBar = () => {
     },
     {
       title: "Quizzes",
-      path: "/quizzes",
+      path: "quizzes",
       icon: <FiFileText size={24} />,
       active: "quizzes",
       roles: ["Instructor", "Student"],

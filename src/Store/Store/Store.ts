@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { ApiSlice } from "../ApiStore/Api";
 import QuestionReducer from "../QuestionSlice/QuestionSlice";
-import authReducer from "../AuthanticationSlice/AuthSlice";
+import authReducer from "../Authantication/AuthSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { StudentApiSlice } from "../../Redux/Api/StudentApi";
 export const store = configureStore({
