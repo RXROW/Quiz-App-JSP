@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import PasswordInput from '../../Shared/PasswordInput/PasswordInput';
 import { RegisterFormData } from '../../../interfaces/authInterfaces';
-import { useRegisterMutation } from '../../../Store/Authantication/AuthApi';
+import { useRegisterMutation } from "../../../Store/ApiStore/Api";
 
 const Register: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterFormData>();
@@ -115,3 +115,4 @@ const Register: React.FC = () => {
 };
 
 export default Register;
+

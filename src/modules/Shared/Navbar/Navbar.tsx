@@ -44,8 +44,8 @@ const Navbar = () => {
         return "Questions";
       case "/dashboard/quizzes":
         return "Quizzes";
-      case "/dashboard/student":
-        return "Student";
+      case "/dashboard/students":
+        return "Students";
       case "/dashboard/groups":
         return "Groups";
       case "/dashboard/results":

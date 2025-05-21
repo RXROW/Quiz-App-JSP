@@ -59,8 +59,10 @@ const SideBar = () => {
       roles: ['Instructor'],
     },
     {
-      title: 'Quizzes',
-      path: 'quizzes',
+
+      title: "Quizzes",
+      path: "quizzes",
+
       icon: <FiFileText size={24} />,
       active: 'quizzes',
       roles: ['Instructor', 'Student'],
