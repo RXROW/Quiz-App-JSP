@@ -19,9 +19,12 @@ export interface Quiz {
   _id: string;
   title: string;
   description: string;
-  schadule?: string;
+  group: string;
+  questions_number: number;
+  difficulty: "easy" | "medium" | "hard";
+  type: "FE" | "BE" | "DO";
+  schadule: string;
   duration: number;
-  difficulty: string;
-  type: string;
+  score_per_question: number;
   code: number;
 }
