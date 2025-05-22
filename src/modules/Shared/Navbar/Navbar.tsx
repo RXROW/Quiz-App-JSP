@@ -86,7 +86,8 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="flex items-center border border-gray-300 rounded-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ease-in-out text-sm shadow-sm hover:shadow-md">
+          <button
+           className="flex items-center border border-gray-300 rounded-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ease-in-out text-sm shadow-sm hover:shadow-md">
             <FcAlarmClock className="me-2 text-2xl" />
             <span className="font-medium">New quiz</span>
           </button>
