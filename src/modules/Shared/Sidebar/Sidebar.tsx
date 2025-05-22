@@ -86,7 +86,7 @@ const SideBar = () => {
   // };
 
   return (
-    <div className="h-auto">
+    <div className="h-full sticky">
       <Sidebar
         collapsed={collapsed}
         collapsedWidth="100px"

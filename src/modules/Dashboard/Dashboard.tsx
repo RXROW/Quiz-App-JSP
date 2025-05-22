@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
           (student: StudentApiResponse) => ({
             name: `${student.first_name} ${student.last_name}`,
             groupName: student.group.name,
-            avgScore: Math.round(student.avg_score * 10) || student.avg_score,
+            avgScore: Math.round(student.avg_score ) || student.avg_score,
             apiData: student,
           })
         )

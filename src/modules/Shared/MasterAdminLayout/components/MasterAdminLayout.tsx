@@ -7,7 +7,7 @@ import SideBar from '../../Sidebar/Sidebar';
 const MasterAdminLayout = () => {
   return (
   
-     <div className="flex h-screen ">
+     <div className="flex h-screen">
       <SideBar />
       
       <div className="flex flex-col flex-1 h-full">
