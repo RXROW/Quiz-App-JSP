@@ -9,6 +9,7 @@ import { logout } from "../../../Store/Authantication/AuthSlice";
 import { HiMenu } from "react-icons/hi";
 import { LuLogOut } from "react-icons/lu";
 import { TbLockPassword } from "react-icons/tb";
+import { LogoIcons } from "../../../ui/Logo";
 
 
 
@@ -79,7 +80,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex items-center justify-between px-4 mx-auto py-2">
         {/* Left side (Logo + Page Title) */}
         <div className="flex items-center gap-3">
-          <img src={logo} alt="Logo" className="h-12 w-12  p-[3px]" />
+          <LogoIcons color="black"/>
           <h1 className="text-2xl font-semibold text-gray-800">{getPageTitle()}</h1>
         </div>
 

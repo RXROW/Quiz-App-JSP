@@ -13,6 +13,7 @@ import {
 import { Link } from 'react-router-dom'
 import { QuizCard } from './QuizCard'
 import { StudentCard } from './StudentCard'
+import Spinner from '../../ui/Spinner'
 
 
 
@@ -100,7 +101,7 @@ const Dashboard: React.FC = () => {
           </h2>
           {isLoadingQuizzes ? (
             <div className="bg-white py-8 rounded-lg shadow-sm border border-gray-200 flex justify-center items-center ">
-              <i className="fas fa-spin fa-spinner fa-2x"></i>
+              <Spinner size="size-12" />
             </div>
           ) : upcomingQuizzes.length === 0 ? (
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
@@ -129,7 +130,7 @@ const Dashboard: React.FC = () => {
             </h2>
             {isLoadingStudents ? (
               <div className="bg-white py-8 rounded-lg shadow-sm border border-gray-200 flex justify-center items-center ">
-                <i className="fas fa-spin fa-spinner fa-2x"></i>
+                <Spinner size="size-12" />
               </div>
             ) : topStudents.length === 0 ? (
               <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">

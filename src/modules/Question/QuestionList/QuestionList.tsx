@@ -6,10 +6,7 @@ import {
   useDeleteQuestionMutation,
   useGetQuestionsQuery,
 } from "../../../Store/ApiStore/Api";
-<<<<<<< HEAD
-=======
-// import DeleteConfirmation from "../../Shared/DelecteConfirmation/DelecteConfirmation";
->>>>>>> f90ec2ab35b1e078baf51a75cd910c9c83c19b69
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   EditingQuestionId,
@@ -21,6 +18,7 @@ import QuestionData from "../QuestionData/QuestionData";
 import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 
 import { toast } from "react-toastify";
+import Spinner from "../../../ui/Spinner";
 interface Question {
   _id: string;
   title: string;
@@ -243,7 +241,7 @@ export default function QuestionList() {
   {isLoading && (
     <tr>
       <td colSpan={5} className="px-4 py-6 text-center">
-        Loading...
+        <Spinner size="size-12" />
       </td>
     </tr>
   )}
