@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FcAlarmClock } from "react-icons/fc";
+import { FcAlarmClock, FcEnteringHeavenAlive } from "react-icons/fc";
+import { MdAlarmAdd } from "react-icons/md";
+import { TfiPencilAlt } from "react-icons/tfi";
 import { FaChevronDown } from "react-icons/fa";
 import logo from "../../../assets/Q.svg";
 import { RootState } from "../../../Store/Store/Store";
@@ -37,26 +39,6 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.auth.user) as User | null;
   console.log("Redux User:", user);
 
-  // const getPageTitle = () => {
-  //   switch (location.pathname) {
-  //     case "/dashboard":
-  //       return "Dashboard";
-  //     case "/dashboard/questions":
-  //       return "Questions";
-  //     case "/dashboard/quizzes":
-  //       return "Quizzes";
-  //     case "/dashboard/students":
-  //       return "Students";
-  //     case "/dashboard/groups":
-  //       return "Groups";
-  //     case "/dashboard/results":
-  //       return "Results";
-  //     case `/dashboard/quizzes/quiz/id/questions`:
-  //       return "Quiz"
-  //     default:
-  //       return "";
-  //   }
-  // };
   const getPageTitle = () => {
     switch (location.pathname) {
       case "/dashboard":
@@ -110,11 +92,19 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex items-center gap-4">
+
           <button
-           className="flex items-center border border-gray-300 rounded-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ease-in-out text-sm shadow-sm hover:shadow-md">
-            <FcAlarmClock className="me-2 text-2xl" />
-            <span className="font-medium">New quiz</span>
-          </button>
+      className="flex items-center border border-gray-300 rounded-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:-translate-y-1 hover:scale-105 transition-all duration-300 ease-in-out text-sm shadow-sm hover:shadow-md"
+    >
+      {user?.role === "Instructor" ? (
+        <MdAlarmAdd className="me-2 text-2xl" />
+      ) : (
+        <TfiPencilAlt className="me-2 text-2xl" />
+      )}
+      <span className="font-medium">
+        {user?.role === "Instructor" ? "New Quiz" : "Join Quiz"}
+      </span>
+    </button>
 
           <div className="h-6 w-px bg-gray-300" />
 
@@ -168,10 +158,16 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-3 border-t border-gray-200">
+        <div className="md:hidden px-4 pt-2 pb-4 space-y-3 border-t border-gray-200">
           <button className="w-full flex items-center border border-gray-300 rounded-full px-4 py-2 cursor-pointer hover:bg-gray-100 text-sm shadow-sm hover:shadow-md">
-            <FcAlarmClock className="me-2 text-2xl" />
-            <span className="font-medium">New quiz</span>
+           {user?.role === "Instructor" ? (
+        <MdAlarmAdd className="me-2 text-2xl" />
+      ) : (
+        <TfiPencilAlt className="me-2 text-2xl" />
+      )}
+      <span className="font-medium">
+        {user?.role === "Instructor" ? "New Quiz" : "Join Quiz"}
+      </span>
           </button>
 
           <div className="text-left">
