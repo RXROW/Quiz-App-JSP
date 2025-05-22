@@ -11,7 +11,7 @@ interface QuestionViewProps {
   Question: Question;
 }
 
-export default function QuestionView: React.FC<QuestionViewProps>({ Question }) {
+export default function QuestionView({ Question }) {
   return (
     <div key={Question._id}>
       <div className="space-y-4">

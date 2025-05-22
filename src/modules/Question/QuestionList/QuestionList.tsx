@@ -6,7 +6,6 @@ import {
   useDeleteQuestionMutation,
   useGetQuestionsQuery,
 } from "../../../Store/ApiStore/Api";
-import DeleteConfirmation from "../../Shared/DelecteConfirmation/DelecteConfirmation";
 import { useDispatch, useSelector } from "react-redux";
 import {
   EditingQuestionId,
@@ -15,6 +14,8 @@ import {
 import ViewModal from "../../Shared/ViewModal/ViewModal";
 import QuestionView from "../QuestionView/QuestionView";
 import QuestionData from "../QuestionData/QuestionData";
+import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
+// import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 interface Question {
   _id: string;
   title: string;

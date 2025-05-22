@@ -69,7 +69,7 @@ const SideBar = () => {
     },
     {
       title: 'Results',
-      path: '/results',
+      path: 'results',
       icon: <FiBarChart2 size={24} />,
       active: 'results',
       roles: ['Instructor', 'Student'],
