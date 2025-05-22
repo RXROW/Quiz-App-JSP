@@ -68,11 +68,13 @@ const Results: React.FC = () => {
           closed_at: quiz.closed_at,
         }))
         setCompletedQuizzes(mappedQuizzes)
+        console.log(mappedQuizzes)
 
         
         if (user?.role === 'Instructor') {
           const resultsResponse = await privateInstance.get(QUIZ.ALL_RESULTS)
           setQuizResults(resultsResponse.data || [])
+          console.log(resultsResponse.data)
         }
       } catch (err) {
         console.error('Error fetching data:', err)

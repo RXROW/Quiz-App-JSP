@@ -37,6 +37,26 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.auth.user) as User | null;
   console.log("Redux User:", user);
 
+  // const getPageTitle = () => {
+  //   switch (location.pathname) {
+  //     case "/dashboard":
+  //       return "Dashboard";
+  //     case "/dashboard/questions":
+  //       return "Questions";
+  //     case "/dashboard/quizzes":
+  //       return "Quizzes";
+  //     case "/dashboard/students":
+  //       return "Students";
+  //     case "/dashboard/groups":
+  //       return "Groups";
+  //     case "/dashboard/results":
+  //       return "Results";
+  //     case `/dashboard/quizzes/quiz/id/questions`:
+  //       return "Quiz"
+  //     default:
+  //       return "";
+  //   }
+  // };
   const getPageTitle = () => {
     switch (location.pathname) {
       case "/dashboard":
@@ -52,9 +72,13 @@ const Navbar = () => {
       case "/dashboard/results":
         return "Results";
       default:
+        if (location.pathname.startsWith("/dashboard/quizzes/quiz/") && 
+            location.pathname.endsWith("/questions")) {
+          return "Quiz";
+        }
         return "";
     }
-  };
+};
 
   const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
