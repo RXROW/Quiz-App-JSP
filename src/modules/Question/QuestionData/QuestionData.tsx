@@ -12,13 +12,29 @@ interface QuestionDataProps {
   onSuccess: () => void;
   id: string | null | undefined;
 }
+// interface QuestionFormData {
+//   title: string;
+//   description: string;
+//   difficulty: string;
+//   type: string;
+// }
 interface QuestionFormData {
   title: string;
   description: string;
   difficulty: string;
   type: string;
+  answer: string;
+  options: {
+    A: string;
+    B: string;
+    C: string;
+    D: string;
+  };
 }
-export default function QuestionData: React.FC<QuestionDataProps>({ onSuccess, id }) {
+
+// export default function QuestionData: React.FC<QuestionDataProps>({ onSuccess, id }) {
+// const QuestionData: React.FC<QuestionDataProps> = ({ onSuccess, id }) => {
+export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
   const {
     OptionA,
     OptionB,
@@ -78,7 +94,9 @@ export default function QuestionData: React.FC<QuestionDataProps>({ onSuccess, i
   return (
     <div>
       <h3 className="my-4 text-2xl font-medium">Details</h3>
+      {/* <form id="modal-form" onSubmit={handleSubmit(onSubmit)}> */}
       <form id="modal-form" onSubmit={handleSubmit(onSubmit)}>
+
         <div>
           <FormInputCrud
             label="Title"
@@ -204,6 +222,8 @@ export default function QuestionData: React.FC<QuestionDataProps>({ onSuccess, i
               type="select"
               options={["easy", "medium", "hard"]}
             />
+            {/* <button type="submit" className="btn-submit">Submit</button> */}
+
             {errors?.difficulty && (
               <p className="mt-1 text-sm text-red-500">
                 {errors?.difficulty?.message}

@@ -17,6 +17,7 @@ import Groups from "./modules/Instructors/Groups/Groups";
 import Questions from "./modules/Instructors/Questions/Questions";
 import Student from "./modules/Instructors/Student/Student";
 import Quizes from "./modules/Instructors/Quizzes/Quizzes";
+import QuestionList from "./modules/Question/QuestionList/QuestionList";
 
 
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       { index: true, element: <Dashboard /> },
       { path: "quizzes", element: <Quizes /> },
       { path: "groups", element: <Groups /> },
-      { path: "questions", element: <Questions /> },
+      { path: "questions", element: <QuestionList /> },
       { path: "students", element: <Student /> },
       
     ],
