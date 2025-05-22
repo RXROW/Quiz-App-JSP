@@ -1,62 +1,29 @@
 import { Quiz } from "../../../interfaces/quizInterfaces";
-import { useState } from "react";
 import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
-import { QUIZ } from "../../../services/apis/apisUrls";
-import { privateInstance } from "../../../services/apis/apisConfig";
-import { toast } from "react-toastify";
 
-export const UpcomingQuizzes = ({ incomingQuiz }: { incomingQuiz: Quiz[] }) => {
-    const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+interface UpcomingQuizzesProps {
+    incomingQuiz: Quiz[];
+    onQuizClick: (quiz: Quiz) => void;
+    selectedQuiz: Quiz | null;
+    isDeleteModalOpen: boolean;
+    onDelete: () => void;
+    onUpdate: () => void;
+    onCloseModal: () => void;
+    onConfirmDelete: () => void;
+    onCancelDelete: () => void;
+}
 
-    const handleQuizClick = (quiz: Quiz) => {
-        setSelectedQuiz(quiz);
-    };
-
-    const closeModal = () => {
-        setSelectedQuiz(null);
-    };
-
-    const handleUpdate = () => {
-        if (selectedQuiz) {
-            console.log("Update quiz:", selectedQuiz._id);
-            // TODO: Implement update logic
-            alert(`Update quiz ${selectedQuiz.title}`);
-            closeModal();
-        }
-    };
-
-    const handleDelete = () => {
-        if (selectedQuiz && selectedQuiz._id) {
-            setIsDeleteModalOpen(true);
-        } else {
-            toast.error("Invalid quiz selected");
-        }
-    };
-
-    const confirmDelete = async () => {
-        if (!selectedQuiz || !selectedQuiz._id) {
-            toast.error("Invalid quiz selected");
-            return;
-        }
-
-        try {
-            await privateInstance.delete(QUIZ.DELETE_QUIZ(selectedQuiz._id));
-            toast.success("Quiz deleted successfully");
-            setIsDeleteModalOpen(false);
-            closeModal();
-            // You might want to refresh the quizzes list here
-            window.location.reload(); // Temporary solution - better to use a callback prop
-        } catch (error: any) {
-            console.error("Failed to delete quiz:", error);
-            toast.error(error.response?.data?.message || "Failed to delete quiz");
-        }
-    };
-
-    const cancelDelete = () => {
-        setIsDeleteModalOpen(false);
-    };
-
+export const UpcomingQuizzes = ({
+    incomingQuiz,
+    onQuizClick,
+    selectedQuiz,
+    isDeleteModalOpen,
+    onDelete,
+    onUpdate,
+    onCloseModal,
+    onConfirmDelete,
+    onCancelDelete
+}: UpcomingQuizzesProps) => {
     return (
         <div className="mt-8">
             <h2 className="text-xl font-bold mb-4">Upcoming Quizzes</h2>
@@ -86,7 +53,7 @@ export const UpcomingQuizzes = ({ incomingQuiz }: { incomingQuiz: Quiz[] }) => {
                                 <tr
                                     key={quiz._id}
                                     className="hover:bg-gray-50 cursor-pointer transition-colors"
-                                    onClick={() => handleQuizClick(quiz)}
+                                    onClick={() => onQuizClick(quiz)}
                                 >
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="text-sm font-medium text-gray-900">{quiz.title}</div>
@@ -119,7 +86,7 @@ export const UpcomingQuizzes = ({ incomingQuiz }: { incomingQuiz: Quiz[] }) => {
                         <div className="flex justify-between items-start mb-4">
                             <h3 className="text-xl font-bold text-gray-900">{selectedQuiz.title}</h3>
                             <button
-                                onClick={closeModal}
+                                onClick={onCloseModal}
                                 className="text-gray-500 hover:text-gray-700"
                             >
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,19 +134,19 @@ export const UpcomingQuizzes = ({ incomingQuiz }: { incomingQuiz: Quiz[] }) => {
 
                             <div className="mt-6 flex justify-end space-x-4">
                                 <button
-                                    onClick={handleUpdate}
+                                    onClick={onUpdate}
                                     className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                                 >
                                     Update
                                 </button>
                                 <button
-                                    onClick={handleDelete}
+                                    onClick={onDelete}
                                     className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                                 >
                                     Delete
                                 </button>
                                 <button
-                                    onClick={closeModal}
+                                    onClick={onCloseModal}
                                     className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
                                 >
                                     Close
@@ -194,8 +161,8 @@ export const UpcomingQuizzes = ({ incomingQuiz }: { incomingQuiz: Quiz[] }) => {
                 isOpen={isDeleteModalOpen}
                 title="Delete Quiz"
                 message={`Are you sure you want to delete the quiz "${selectedQuiz?.title}"?`}
-                onConfirm={confirmDelete}
-                onCancel={cancelDelete}
+                onConfirm={onConfirmDelete}
+                onCancel={onCancelDelete}
             />
         </div>
     );

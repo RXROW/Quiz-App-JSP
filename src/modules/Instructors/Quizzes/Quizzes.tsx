@@ -3,24 +3,32 @@ import { BsBank2 } from "react-icons/bs";
 import { IoIosAlarm } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Store/Store/Store";
 
 import { QUIZ, GROUP } from "../../../services/apis/apisUrls";
 import { privateInstance } from "../../../services/apis/apisConfig";
 import { CompletedQuizzes } from "./CompletedQuizzes";
 import { UpcomingQuizzes } from "./UpcomingQuizzes";
 import { SimpleQuizCreationModal } from "./SimpleQuizCreationModal";
+import { UpdateQuizModal } from "./UpdateQuizModal";
 import { SuccessModal } from "./SuccessModal";
 import { Group, Quiz, QuizData } from "../../../interfaces/quizInterfaces";
 
-
-
 export default function Quizes() {
+  const user = useSelector((state: RootState) => state.auth.user);
+  console.log("user", user.role);
+  const isInstructor = user?.role === "Instructor";
+
   const [groups, setGroups] = useState<Group[]>([]);
   const [firstFiveIncoming, setFirstFiveIncoming] = useState<Quiz[]>([]);
   const [completedQuizzes, setCompletedQuizzes] = useState<Quiz[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
   const [code, setCode] = useState<number>(0);
 
   // Create a form object without react-hook-form since we're removing the dependency
@@ -86,13 +94,66 @@ export default function Quizes() {
       setIsModalOpen(false);
       setIsSecondModalOpen(true);
       resetForm();
-      window.location.reload(); 
+      getFirstFiveIncoming();
     } catch (error) {
       console.error(error);
       toast.error("Failed to create quiz");
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedQuiz?._id) {
+      toast.error("No quiz selected for update");
+      return;
+    }
+
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await privateInstance.put(QUIZ.UPDATE_QUIZ(selectedQuiz._id), formData);
+      toast.success("Quiz Updated Successfully");
+      setIsUpdateModalOpen(false);
+      resetForm();
+      getFirstFiveIncoming();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update quiz");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleQuizClick = (quiz: Quiz) => {
+    if (!quiz) {
+      toast.error("Invalid quiz data");
+      return;
+    }
+    setSelectedQuiz(quiz);
+    // Pre-fill the form with quiz data
+    setFormData({
+      title: quiz.title,
+      description: quiz.description,
+      group: quiz.group,
+      questions_number: quiz.questions_number,
+      difficulty: quiz.difficulty,
+      type: quiz.type,
+      schadule: quiz.schadule,
+      duration: quiz.duration,
+      score_per_question: quiz.score_per_question
+    });
+  };
+
+  const closeModal = () => {
+    setSelectedQuiz(null);
+    resetForm();
   };
 
   const resetForm = () => {
@@ -121,8 +182,10 @@ export default function Quizes() {
   };
 
   const getAllGroups = async () => {
-    try { 
-      const response = await privateInstance.get(GROUP.GET_ALL); 
+    if (!isInstructor) return;
+
+    try {
+      const response = await privateInstance.get(GROUP.GET_ALL);
       if (!response.data || !Array.isArray(response.data)) {
         console.error("Invalid groups response format:", response.data);
         toast.error("Invalid response format from groups API");
@@ -145,12 +208,15 @@ export default function Quizes() {
       console.log("Fetching incoming quizzes from:", QUIZ.FIRST_FIVE_INCOMMING);
       const response = await privateInstance.get(QUIZ.FIRST_FIVE_INCOMMING);
       console.log("Incoming Quizzes API Response:", response);
-      if (!response.data || !Array.isArray(response.data)) {
-        console.error("Invalid incoming quizzes response format:", response.data);
-        toast.error("Invalid response format from incoming quizzes API");
+
+      if (!response.data) {
+        console.error("No data received from API");
+        toast.error("No data received from server");
         return;
       }
-      setFirstFiveIncoming(response.data);
+
+      const quizzes = Array.isArray(response.data) ? response.data : [];
+      setFirstFiveIncoming(quizzes);
     } catch (error: any) {
       console.error("Failed to fetch upcoming quizzes:", error);
       console.error("Error details:", {
@@ -159,6 +225,7 @@ export default function Quizes() {
         status: error.response?.status
       });
       toast.error(error.response?.data?.message || "Failed to load upcoming quizzes");
+      setFirstFiveIncoming([]);
     }
   };
 
@@ -167,12 +234,15 @@ export default function Quizes() {
       console.log("Fetching completed quizzes from:", QUIZ.LAST_FIVE_COMPLETED);
       const response = await privateInstance.get(QUIZ.LAST_FIVE_COMPLETED);
       console.log("Completed Quizzes API Response:", response);
-      if (!response.data || !Array.isArray(response.data)) {
-        console.error("Invalid completed quizzes response format:", response.data);
-        toast.error("Invalid response format from completed quizzes API");
+
+      if (!response.data) {
+        console.error("No data received from API");
+        toast.error("No data received from server");
         return;
       }
-      setCompletedQuizzes(response.data);
+
+      const quizzes = Array.isArray(response.data) ? response.data : [];
+      setCompletedQuizzes(quizzes);
     } catch (error: any) {
       console.error("Failed to fetch completed quizzes:", error);
       console.error("Error details:", {
@@ -181,6 +251,7 @@ export default function Quizes() {
         status: error.response?.status
       });
       toast.error(error.response?.data?.message || "Failed to load completed quizzes");
+      setCompletedQuizzes([]);
     }
   };
 
@@ -189,21 +260,24 @@ export default function Quizes() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        await Promise.all([
-          getAllGroups(),
-          getFirstFiveIncoming(),
-          getCompletedQuizzes()
-        ]);
+        const fetchPromises = [getFirstFiveIncoming(), getCompletedQuizzes()];
+
+        // Only fetch groups if user is an instructor
+        if (isInstructor) {
+          fetchPromises.push(getAllGroups());
+        }
+
+        await Promise.all(fetchPromises);
       } catch (error) {
         console.error("Error fetching initial data:", error);
         toast.error("Failed to load initial data");
       } finally {
         setIsLoading(false);
       }
-    }; 
+    };
 
     fetchData();
-  }, []);
+  }, [isInstructor]); // Add isInstructor as a dependency
 
   if (isLoading) {
     return (
@@ -212,6 +286,37 @@ export default function Quizes() {
       </div>
     );
   }
+
+  const handleDelete = () => {
+    if (selectedQuiz && selectedQuiz._id) {
+      setIsDeleteModalOpen(true);
+    } else {
+      toast.error("Invalid quiz selected");
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!selectedQuiz || !selectedQuiz._id) {
+      toast.error("Invalid quiz selected");
+      return;
+    }
+
+    try {
+      await privateInstance.delete(QUIZ.DELETE_QUIZ(selectedQuiz._id));
+      toast.success("Quiz deleted successfully");
+      setIsDeleteModalOpen(false);
+      closeModal();
+      // Refresh the quizzes list
+      getFirstFiveIncoming();
+    } catch (error: any) {
+      console.error("Failed to delete quiz:", error);
+      toast.error(error.response?.data?.message || "Failed to delete quiz");
+    }
+  };
+
+  const cancelDelete = () => {
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <>
@@ -230,34 +335,36 @@ export default function Quizes() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16">
         <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <button
-              className="border-2 rounded-lg py-5 hover:bg-slate-900 hover:text-white transition-colors"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <div className="flex flex-col justify-center items-center gap-y-2">
-                <div>
-                  <IoIosAlarm className="text-4xl md:text-6xl" />
+          {isInstructor && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <button
+                className="border-2 rounded-lg py-5 hover:bg-slate-900 hover:text-white transition-colors"
+                onClick={() => setIsModalOpen(true)}
+              >
+                <div className="flex flex-col justify-center items-center gap-y-2">
+                  <div>
+                    <IoIosAlarm className="text-4xl md:text-6xl" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-lg">Set up a new quiz</span>
+                  </div>
                 </div>
-                <div>
-                  <span className="font-semibold text-lg">Set up a new quiz</span>
+              </button>
+              <Link
+                to="/dashboard/questions"
+                className="border-2 rounded-lg py-5 hover:bg-slate-900 hover:text-white transition-colors flex flex-col justify-center items-center"
+              >
+                <div className="flex flex-col justify-center items-center gap-y-2">
+                  <div>
+                    <BsBank2 className="text-4xl md:text-6xl" />
+                  </div>
+                  <div>
+                    <span className="font-semibold text-lg">Question Bank</span>
+                  </div>
                 </div>
-              </div>
-            </button>
-            <Link
-              to="questions"
-              className="border-2 rounded-lg py-5 hover:bg-slate-900 hover:text-white transition-colors flex flex-col justify-center items-center"
-            >
-              <div className="flex flex-col justify-center items-center gap-y-2">
-                <div>
-                  <BsBank2 className="text-4xl md:text-6xl" />
-                </div>
-                <div>
-                  <span className="font-semibold text-lg">Question Bank</span>
-                </div>
-              </div>
-            </Link>
-          </div>
+              </Link>
+            </div>
+          )}
 
           {completedQuizzes.length === 0 ? (
             <div className="mt-8 p-4 bg-gray-50 rounded-lg text-center">
@@ -274,32 +381,57 @@ export default function Quizes() {
               <p className="text-gray-500">No upcoming quizzes found</p>
             </div>
           ) : (
-            <UpcomingQuizzes incomingQuiz={firstFiveIncoming} />
+            <UpcomingQuizzes
+              incomingQuiz={firstFiveIncoming}
+              onQuizClick={handleQuizClick}
+              selectedQuiz={selectedQuiz}
+              isDeleteModalOpen={isDeleteModalOpen}
+              onDelete={handleDelete}
+              onUpdate={() => setIsUpdateModalOpen(true)}
+              onCloseModal={closeModal}
+              onConfirmDelete={confirmDelete}
+              onCancelDelete={cancelDelete}
+            />
           )}
         </div>
       </div>
 
-      <div>
-        <SimpleQuizCreationModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            resetForm();
-            setIsModalOpen(false);
-          }}
-          isSubmitting={isSubmitting}
-          errors={errors}
-          formData={formData}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          groups={groups}
-        />
-        <SuccessModal
-          isOpen={isSecondModalOpen}
-          onClose={() => setIsSecondModalOpen(false)}
-          code={code}
-          onCopyCode={handleCopyCode}
-        />
-      </div>
+      {isInstructor && (
+        <div>
+          <SimpleQuizCreationModal
+            isOpen={isModalOpen}
+            onClose={() => {
+              resetForm();
+              setIsModalOpen(false);
+            }}
+            isSubmitting={isSubmitting}
+            errors={errors}
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            groups={groups}
+          />
+          <UpdateQuizModal
+            isOpen={isUpdateModalOpen}
+            onClose={() => {
+              resetForm();
+              setIsUpdateModalOpen(false);
+            }}
+            isSubmitting={isSubmitting}
+            errors={errors}
+            formData={formData}
+            handleChange={handleChange}
+            handleSubmit={handleUpdate}
+            groups={groups}
+          />
+          <SuccessModal
+            isOpen={isSecondModalOpen}
+            onClose={() => setIsSecondModalOpen(false)}
+            code={code}
+            onCopyCode={handleCopyCode}
+          />
+        </div>
+      )}
     </>
   );
 }

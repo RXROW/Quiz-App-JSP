@@ -18,7 +18,10 @@ import Questions from "./modules/Instructors/Questions/Questions";
 import Student from "./modules/Instructors/Student/Student";
 import Quizes from "./modules/Instructors/Quizzes/Quizzes";
 import QuestionList from "./modules/Question/QuestionList/QuestionList";
+<<<<<<< HEAD
 import Results from "./modules/Lerner/Results/Results";
+=======
+>>>>>>> f90ec2ab35b1e078baf51a75cd910c9c83c19b69
 
 
 
@@ -43,11 +46,19 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Dashboard /> },
+<<<<<<< HEAD
       { path: 'quizzes', element: <Quizes /> },
       { path: 'groups', element: <Groups /> },
       { path: 'questions', element: <QuestionList /> },
       { path: 'students', element: <Student /> },
       { path: 'results', element: <Results /> },
+=======
+      { path: "quizzes", element: <Quizes /> },
+      { path: "groups", element: <Groups /> },
+      { path: "questions", element: <QuestionList /> },
+      { path: "students", element: <Student /> },
+      
+>>>>>>> f90ec2ab35b1e078baf51a75cd910c9c83c19b69
     ],
   },
 ])
