@@ -51,11 +51,11 @@ const Results: React.FC = () => {
         setLoading(true)
         setError('')
 
-        // Fetch completed quizzes
+        
         const quizzesResponse = await privateInstance.get(
           QUIZ.LAST_FIVE_COMPLETED
         )
-        // Map the API response to our expected format
+        
         const mappedQuizzes = quizzesResponse.data.map((quiz: any) => ({
           _id: quiz._id,
           title: quiz.title,
@@ -69,7 +69,7 @@ const Results: React.FC = () => {
         }))
         setCompletedQuizzes(mappedQuizzes)
 
-        // Fetch all results (for instructors)
+        
         if (user?.role === 'Instructor') {
           const resultsResponse = await privateInstance.get(QUIZ.ALL_RESULTS)
           setQuizResults(resultsResponse.data || [])
@@ -85,7 +85,7 @@ const Results: React.FC = () => {
     fetchData()
   }, [user?.role])
 
-  // Rest of the component remains the same...
+  
   if (loading) {
     return (
       <div className="flex items-center justify-center mt-18">
@@ -110,7 +110,7 @@ const Results: React.FC = () => {
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
-      {/* Individual Score Feedback */}
+      
       {score !== undefined && (
         <div className="md:w-1/3 mx-auto text-center mb-8">
           <img
@@ -139,7 +139,7 @@ const Results: React.FC = () => {
         </div>
       )}
 
-      {/* Completed Quizzes Table */}
+      
       <div className="mb-12">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           Recently Completed Quizzes
@@ -194,7 +194,7 @@ const Results: React.FC = () => {
         </div>
       </div>
 
-      {/* Detailed Results Table (Instructor Only) */}
+      
       {user?.role === 'Instructor' && (
         <div>
           <h2 className="text-2xl font-bold mb-4 text-gray-800">
