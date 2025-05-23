@@ -17,7 +17,7 @@ export const CompletedQuizzes = ({ quizzes }: { quizzes: Quiz[] }) => {
         <div className="mt-8">
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-bold">Completed Quizzes</h2>
-                <Link to="#" className="text-sm text-green-600 hover:text-green-800 flex items-center">
+                <Link to="/dashboard/results" className="text-sm text-green-600 hover:text-green-800 flex items-center">
                     Results <span className="ml-1">&#8594;</span>
                 </Link>
             </div>

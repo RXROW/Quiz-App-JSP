@@ -1,17 +1,6 @@
 import { Group, QuizData } from "../../../interfaces/quizInterfaces";
 
- 
-// Refactor SimpleQuizCreationModal to accept props
-export const SimpleQuizCreationModal = ({
-    isOpen,
-    onClose,
-    isSubmitting,
-    errors,
-    formData,
-    handleChange,
-    handleSubmit,
-    groups
-}: {
+interface UpdateQuizModalProps {
     isOpen: boolean;
     onClose: () => void;
     isSubmitting: boolean;
@@ -20,14 +9,25 @@ export const SimpleQuizCreationModal = ({
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
     groups: Group[];
-}) => {
+}
+
+export const UpdateQuizModal = ({
+    isOpen,
+    onClose,
+    isSubmitting,
+    errors,
+    formData,
+    handleChange,
+    handleSubmit,
+    groups
+}: UpdateQuizModalProps) => {
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] flex flex-col">
                 <div className="p-6 border-b">
-                    <h2 className="text-xl font-bold">Create New Quiz</h2>
+                    <h2 className="text-xl font-bold">Update Quiz</h2>
                 </div>
                 <div className="p-6 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -168,14 +168,14 @@ export const SimpleQuizCreationModal = ({
                     </button>
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={isSubmitting}
                         onClick={handleSubmit}
                     >
-                        {isSubmitting ? "Creating..." : "Create Quiz"}
+                        {isSubmitting ? "Updating..." : "Update Quiz"}
                     </button>
                 </div>
             </div>
         </div>
     );
-};
+}; 

@@ -7,6 +7,7 @@ import { Group, Student } from "../../../interfaces/authInterfaces";
 import { useNavigate } from "react-router-dom";
 import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
 import Pagination from "../../Shared/Pagination/Pagination";
+import { toast } from "react-toastify";
 
 const Groups = () => {
   const [groups, setGroups] = useState<Group[]>([]);
@@ -77,9 +78,11 @@ const Groups = () => {
         students: selectedStudents,
       });
       setIsModalOpen(false);
+      toast.success("Group created successfully");
       refreshGroups();
     } catch (error) {
       console.error("Error creating group:", error);
+      toast.error("Failed to create group")
     }
   };
 
@@ -93,6 +96,7 @@ const Groups = () => {
         students: selectedStudents,
       });
       setIsModalOpen(false);
+      toast.success("Group updated successfully");
       setEditingGroup(null);
       refreshGroups();
     } catch (error) {
@@ -118,9 +122,11 @@ const Groups = () => {
       await privateInstance.delete(GROUP.DELETE_GROUP(groupToDelete._id));
       setIsDeleteModalOpen(false);
       setGroupToDelete(null);
+      toast.success("Group deleted successfully")
       refreshGroups();
     } catch (error) {
       console.error("Error deleting group:", error);
+      toast.error("Failed to delete group")
     }
   };
   const confirmDeleteGroup = (group: Group) => {

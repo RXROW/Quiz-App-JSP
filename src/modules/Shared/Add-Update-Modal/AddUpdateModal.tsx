@@ -2,12 +2,20 @@ import { Modal, ModalBody } from "flowbite-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { ReactNode, FormEvent } from "react";
 
+// interface AddUpdateModalProps {
+//   children: ReactNode;
+//   closeModal: () => void;
+//   openModal: boolean;
+//   header: string;
+//   onsubmit: (event: FormEvent<HTMLButtonElement>) => void;
+// }
+
 interface AddUpdateModalProps {
   children: ReactNode;
   closeModal: () => void;
   openModal: boolean;
   header: string;
-  onsubmit: (event: FormEvent<HTMLButtonElement>) => void;
+  onSubmit: () => void; 
 }
 
 export default function AddUpdateModal({
@@ -15,17 +23,19 @@ export default function AddUpdateModal({
   closeModal,
   openModal,
   header,
-  onsubmit,
+  onSubmit,
 }: AddUpdateModalProps) {
   return (
     <>
-      <Modal show={openModal} size="xl" popup>
+      <Modal show={openModal} size="xl" popup className="max-w-[70rem] w-full mx-auto ">
         <div className="ModalHeader border-custom-black flex items-center justify-between border-b-2">
           <h2 className="pl-6 text-xl font-bold">{header}</h2>
           <div className="action flex cursor-pointer">
             <button
               type="submit"
-              onClick={onsubmit}
+              // onClick={onSubmit}
+                          onClick={() => document.getElementById("modal-form")?.requestSubmit()}
+
               className="border-var border-l-2 p-6 text-xl"
             >
               <FaCheck />
