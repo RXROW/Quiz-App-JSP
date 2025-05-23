@@ -7,10 +7,7 @@ import ForgotPassword from './modules/Auth/Forgot Password/ForgotPassword';
 import ResetPassword from './modules/Auth/Reset password/ResetPassword';
 import ChangePassword from './modules/Auth/Change Password/ChangePassword';
 import { ToastContainer } from 'react-toastify';
-
-
 import 'react-toastify/dist/ReactToastify.css';
-
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard'; 
 import Groups from "./modules/Instructors/Groups/Groups";
@@ -18,14 +15,17 @@ import Questions from "./modules/Instructors/Questions/Questions";
 import Student from "./modules/Instructors/Student/Student";
 import Quizes from "./modules/Instructors/Quizzes/Quizzes";
 import QuestionList from "./modules/Question/QuestionList/QuestionList";
-
 import Results from "./modules/Lerner/Results/Results";
 import AnswerQuiz from "./modules/Instructors/Quizzes/AnswerQuiz";
 
+import 'react-toastify/dist/ReactToastify.css'
 
-
-
-
+import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout'
+import Dashboard from './modules/Dashboard/Dashboard'
+import Groups from './modules/Instructors/Groups/Groups'
+import Questions from './modules/Instructors/Questions/Questions'
+import Student from './modules/Instructors/Student/Student'
+import Quizes from './modules/Instructors/Quizzes/Quizzes'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Dashboard /> },
-
       { path: 'quizzes', element: <Quizes /> },
       { path: 'groups', element: <Groups /> },
       { path: 'questions', element: <QuestionList /> },
@@ -58,27 +57,23 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-
   return (
- <>
-    <RouterProvider router={router} />
-  <ToastContainer
-    position="top-right"
-    autoClose={3000}
-    hideProgressBar={false}
-    newestOnTop={false}
-    closeOnClick
-    rtl={false}
-    pauseOnFocusLoss
-    draggable
-    pauseOnHover
-    theme="colored"
-  />
- </>
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </>
   )
-  
+}
 
-
-};
-
-export default App;
+export default App

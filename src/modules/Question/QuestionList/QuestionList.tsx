@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { FaEdit, FaEye, FaPlusCircle, FaTrashAlt } from "react-icons/fa";
 import useModal from "../../../hook/useModal";
 import AddUpdateModal from "../../Shared/Add-Update-Modal/AddUpdateModal";
@@ -15,72 +14,64 @@ import {
 import ViewModal from "../../Shared/ViewModal/ViewModal";
 import QuestionView from "../QuestionView/QuestionView";
 import QuestionData from "../QuestionData/QuestionData";
-import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
+import DeleteModal from '../../Shared/DeleteModal/DeleteModal'
 
 import { toast } from "react-toastify";
 import Spinner from "../../../ui/Spinner";
+
 interface Question {
-  _id: string;
-  title: string;
-  description: string;
-  difficulty: string;
-  type: string;
+  _id: string
+  title: string
+  description: string
+  difficulty: string
+  type: string
 }
 
 // Define interface for the Redux state (QuestionSlice)
 interface QuestionState {
   Question: {
-    QuestionId: string | null;
-  };
+    QuestionId: string | null
+  }
 }
 export default function QuestionList() {
-  const { data, isLoading, isError } = useGetQuestionsQuery();
+  const { data, isLoading, isError } = useGetQuestionsQuery()
   const QuestionId = useSelector(
     (state: QuestionState) => state.Question.QuestionId
-  );
-  const Questions: Question[] | undefined = data?.slice(0, 10);
-  const { isOpen, closeModal, openModal } = useModal();
-  const [deleteQuestion, { status, reset }] = useDeleteQuestionMutation();
+  )
+  const Questions: Question[] | undefined = data?.slice(0, 10)
+  const { isOpen, closeModal, openModal } = useModal()
+  const [deleteQuestion, { status, reset }] = useDeleteQuestionMutation()
   const viewQuestion: Question[] | undefined = data?.filter(
     (item: Question) => item?._id === QuestionId
-  );
-  const dispatch = useDispatch();
+  )
+  const dispatch = useDispatch()
   const handleEditQuestion = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    openModal("AddQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    openModal('AddQuestion')
+  }
   const handleViewQuestion = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    openModal("ViewQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    openModal('ViewQuestion')
+  }
   const handleFormSuccess = () => {
-    dispatch(RemoveQuestionId());
-    closeModal();
+    dispatch(RemoveQuestionId())
+    closeModal()
   };
+
   // const handleDeleteQuestion = async (id: string) => {
   //   await deleteQuestion(id).unwrap();
   // };
-  const handleDeleteQuestion = async (id: string) => {
-  try {
-    await deleteQuestion(id).unwrap();
-    toast.success("Question deleted successfully");
-    closeModal();
-    dispatch(RemoveQuestionId());
-  } catch (error) {
-    toast.error("Failed to delete question");
-    console.error("Delete failed", error);
-  }
-};
+
 
   const handleViewDelete = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    reset();
-    openModal("DeleteQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    reset()
+    openModal('DeleteQuestion')
+  }
   const handleAddNew = () => {
-    dispatch(RemoveQuestionId());
-    openModal("AddQuestion");
-  };
+    dispatch(RemoveQuestionId())
+    openModal('AddQuestion')
+  }
   return (
     <>
       {/* <div>
@@ -230,6 +221,7 @@ export default function QuestionList() {
           </tr>
         ))}
     </tbody> */}
+
     <tbody className="divide-y divide-gray-200 bg-white">
   {isError && (
     <tr>
@@ -328,9 +320,10 @@ export default function QuestionList() {
 </div>
 
       {isOpen("AddQuestion") && (
+
         <AddUpdateModal
           closeModal={closeModal}
-          header={QuestionId ? "Updata Question" : "Create Question"}
+          header={QuestionId ? 'Updata Question' : 'Create Question'}
           openModal={openModal}
         >
           <QuestionData
@@ -341,18 +334,18 @@ export default function QuestionList() {
         </AddUpdateModal>
       )}
 
-      {isOpen("DeleteQuestion") && QuestionId && (
-  <DeleteConfirmation
-    isOpen={true}
-    title="Delete Question"
-    message={`Are you sure you want to delete the question "${viewQuestion[0]?.title}"?`}
-    onConfirm={() => handleDeleteQuestion(QuestionId)}
-    onCancel={closeModal}
-  />
-)}
 
+      {isOpen('DeleteQuestion') && QuestionId && (
+        <DeleteModal
+          isOpen={openModal}
+          onClose={closeModal}
+          onConfirm={() => handleDeleteQuestion(QuestionId)}
+          status={status}
+        />
+      )}
 
       {isOpen("ViewQuestion") && (
+
         <ViewModal
           isOpen={openModal}
           onClose={closeModal}
@@ -362,5 +355,5 @@ export default function QuestionList() {
         </ViewModal>
       )}
     </>
-  );
+  )
 }

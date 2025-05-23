@@ -1,33 +1,33 @@
-import { FormInput } from "../../Shared/AuthForm/FormInput";
-import ReusableForm from "../../Shared/AuthForm/ReusableForm";
-import { FormProvider, useForm } from "react-hook-form";
-import ButtonForm from "../../Shared/AuthForm/ButtonForm";
-import { toast } from "react-toastify";
-import { getValidationRules } from "../../../hook/usevalidations";
-import { useLoginMutation } from "../../../Store/ApiStore/Api";
-import { LoginData } from "../../../interfaces/authInterfaces";
-import { Link, useNavigate } from "react-router";
+import { FormInput } from '../../Shared/AuthForm/FormInput'
+import ReusableForm from '../../Shared/AuthForm/ReusableForm'
+import { FormProvider, useForm } from 'react-hook-form'
+import ButtonForm from '../../Shared/AuthForm/ButtonForm'
+import { toast } from 'react-toastify'
+import { getValidationRules } from '../../../hook/usevalidations'
+import { useLoginMutation } from '../../../Store/ApiStore/Api'
+import { LoginData } from '../../../interfaces/authInterfaces'
+import { Link, useNavigate } from 'react-router'
 const Login = () => {
-  const { email, password } = getValidationRules();
-  const [login, { isLoading }] = useLoginMutation();
-  const navigate = useNavigate();
+  const { email, password } = getValidationRules()
+  const [login, { isLoading }] = useLoginMutation()
+  const navigate = useNavigate()
   const methods = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-  });
-  console.log(isLoading);
+  })
+  console.log(isLoading)
   const onSubmit = async (data: LoginData) => {
     try {
-      const response = await login(data).unwrap();
-      navigate("/dashboard");
-      toast.success(response.message);
+      const response = await login(data).unwrap()
+      navigate('/dashboard')
+      toast.success(response.message)
     } catch (error) {
-      console.log(error);
-      toast.error(error.data.message || "Ckeck Your internet");
+      console.log(error)
+      toast.error(error.data.message || 'Ckeck Your internet')
     }
-  };
+  }
   return (
     <>
       <FormProvider {...methods}>
@@ -43,10 +43,10 @@ const Login = () => {
             label="Password"
             name="password"
             type="password"
-            // rules={password}
-            placeholder={"Type Your Password"}
+            rules={password}
+            placeholder={'Type Your Password'}
           />
-          <div className="flex w-3/4 items-center justify-between text-white">
+          <div className="flex  items-center justify-between text-white">
             <ButtonForm isSubmitting={isLoading}>Sign in</ButtonForm>
             <p>
               ForgetPassword?
@@ -58,7 +58,7 @@ const Login = () => {
         </ReusableForm>
       </FormProvider>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login
