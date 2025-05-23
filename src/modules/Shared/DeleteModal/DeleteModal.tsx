@@ -1,60 +1,54 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef } from "react";
-import { X, Loader2, CheckCircle, Check, AlertTriangle } from "lucide-react";
-import deletconfirm from "../../../assets/DeleteConfim.jpg";
-interface DeleteModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  status: string;
-  size?:string ;
-}
-export default function DeleteModal: React.FC<DeleteModalProps>({
+import { useEffect, useRef } from 'react'
+import { X, Loader2, CheckCircle, Check, AlertTriangle } from 'lucide-react'
+import deletconfirm from '../../../assets/DeleteConfim.jpg'
+
+export default function DeleteModal({
   isOpen,
   onClose,
   onConfirm,
   status,
-  size = "md",
+  size = 'md',
 }) {
-  const modalRef = useRef(null);
+  const modalRef = useRef(null)
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape" && isOpen) {
-        onClose();
+      if (event.key === 'Escape' && isOpen) {
+        onClose()
       }
-    };
-    window.addEventListener("keydown", handleKeyDown);
+    }
+    window.addEventListener('keydown', handleKeyDown)
     // Prevent body scrolling when modal is open
     if (isOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset'
     }
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, onClose]);
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen, onClose])
   useEffect(() => {
     setTimeout(() => {
-      if (status === "fulfilled" || status === "rejected") {
-        onClose();
+      if (status === 'fulfilled' || status === 'rejected') {
+        onClose()
       }
-    }, 1200);
-  }, [status, onClose]);
+    }, 1200)
+  }, [status, onClose])
   // Simulates the deletion process
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
-      onClose();
+      onClose()
     }
-  };
+  }
   const sizeClasses = {
-    sm: "max-w-md",
-    md: "max-w-lg",
-    lg: "max-w-2xl",
-    xl: "max-w-4xl",
-    full: "max-w-full mx-4",
-  };
+    sm: 'max-w-md',
+    md: 'max-w-lg',
+    lg: 'max-w-2xl',
+    xl: 'max-w-4xl',
+    full: 'max-w-full mx-4',
+  }
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
@@ -74,12 +68,12 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
             <button
               onClick={onConfirm}
               className="flex items-center justify-center border-l border-custom-black px-4 py-3 text-black hover:bg-gray-100 disabled:cursor-not-allowed"
-              disabled={status === "pending"}
+              disabled={status === 'pending'}
             >
               <Check className="h-5 w-5" />
             </button>
             <button
-              disabled={status === "pending"}
+              disabled={status === 'pending'}
               onClick={onClose}
               className="flex items-center justify-center border-l border-custom-black px-4 py-3 text-black hover:bg-gray-100 disabled:cursor-not-allowed"
             >
@@ -89,7 +83,7 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
         </div>
         {/* Modal content */}
         <div className="p-3">
-          {status === "uninitialized" && (
+          {status === 'uninitialized' && (
             <>
               <h2 className="text-center text-xl">
                 Are you sure you want to delete this item?
@@ -99,7 +93,7 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
               </div>
             </>
           )}
-          {status === "pending" && (
+          {status === 'pending' && (
             <div className="flex flex-col items-center justify-center py-4">
               <div className="mb-4 animate-spin">
                 <Loader2 size={60} className="mb-4 text-green-500" />
@@ -107,7 +101,7 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
               <p>Deleting item ..... </p>
             </div>
           )}
-          {status === "fulfilled" && (
+          {status === 'fulfilled' && (
             <div className="flex flex-col items-center justify-center py-4">
               <CheckCircle size={60} className="mb-4 text-green-500" />
               <p className="text-xl text-gray-700">
@@ -115,7 +109,7 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
               </p>
             </div>
           )}
-          {status === "rejected" && (
+          {status === 'rejected' && (
             <div className="flex flex-col items-center justify-center py-4">
               <AlertTriangle size={60} className="mb-4 text-red-500" />
               <p className="text-xl text-gray-700">Item deleted Failed!</p>
@@ -124,5 +118,5 @@ export default function DeleteModal: React.FC<DeleteModalProps>({
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,86 +1,79 @@
 /* eslint-disable no-unused-vars */
-import { FaEdit, FaEye, FaPlusCircle, FaTrashAlt } from "react-icons/fa";
-import useModal from "../../../hook/useModal";
-import AddUpdateModal from "../../Shared/Add-Update-Modal/AddUpdateModal";
+import { FaEdit, FaEye, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
+import useModal from '../../../hook/useModal'
+import AddUpdateModal from '../../Shared/Add-Update-Modal/AddUpdateModal'
 import {
   useDeleteQuestionMutation,
   useGetQuestionsQuery,
-} from "../../../Store/ApiStore/Api";
+} from '../../../Store/ApiStore/Api'
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux'
 import {
   EditingQuestionId,
   RemoveQuestionId,
-} from "../../../Store/QuestionSlice/QuestionSlice";
-import ViewModal from "../../Shared/ViewModal/ViewModal";
-import QuestionView from "../QuestionView/QuestionView";
-import QuestionData from "../QuestionData/QuestionData";
-import DeleteConfirmation from "../../Shared/DeleteConfirmation/DeleteConfirmation";
+} from '../../../Store/QuestionSlice/QuestionSlice'
+import ViewModal from '../../Shared/ViewModal/ViewModal'
+import QuestionView from '../QuestionView/QuestionView'
+import QuestionData from '../QuestionData/QuestionData'
+import DeleteModal from '../../Shared/DeleteModal/DeleteModal'
 
-import { toast } from "react-toastify";
-import Spinner from "../../../ui/Spinner";
+import { toast } from 'react-toastify'
+import Spinner from '../../../ui/Spinner'
 interface Question {
-  _id: string;
-  title: string;
-  description: string;
-  difficulty: string;
-  type: string;
+  _id: string
+  title: string
+  description: string
+  difficulty: string
+  type: string
 }
 
 // Define interface for the Redux state (QuestionSlice)
 interface QuestionState {
   Question: {
-    QuestionId: string | null;
-  };
+    QuestionId: string | null
+  }
 }
 export default function QuestionList() {
-  const { data, isLoading, isError } = useGetQuestionsQuery();
+  const { data, isLoading, isError } = useGetQuestionsQuery()
   const QuestionId = useSelector(
     (state: QuestionState) => state.Question.QuestionId
-  );
-  const Questions: Question[] | undefined = data?.slice(0, 10);
-  const { isOpen, closeModal, openModal } = useModal();
-  const [deleteQuestion, { status, reset }] = useDeleteQuestionMutation();
+  )
+  const Questions: Question[] | undefined = data?.slice(0, 10)
+  const { isOpen, closeModal, openModal } = useModal()
+  const [deleteQuestion, { status, reset }] = useDeleteQuestionMutation()
   const viewQuestion: Question[] | undefined = data?.filter(
     (item: Question) => item?._id === QuestionId
-  );
-  const dispatch = useDispatch();
+  )
+  const dispatch = useDispatch()
   const handleEditQuestion = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    openModal("AddQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    openModal('AddQuestion')
+  }
   const handleViewQuestion = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    openModal("ViewQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    openModal('ViewQuestion')
+  }
   const handleFormSuccess = () => {
-    dispatch(RemoveQuestionId());
-    closeModal();
-  };
+    dispatch(RemoveQuestionId())
+    closeModal()
+  }
   // const handleDeleteQuestion = async (id: string) => {
   //   await deleteQuestion(id).unwrap();
   // };
   const handleDeleteQuestion = async (id: string) => {
-  try {
-    await deleteQuestion(id).unwrap();
-    toast.success("Question deleted successfully");
-    closeModal();
-    dispatch(RemoveQuestionId());
-  } catch (error) {
-    toast.error("Failed to delete question");
-    console.error("Delete failed", error);
+    await deleteQuestion(id).unwrap()
+    dispatch(RemoveQuestionId())
   }
-};
 
   const handleViewDelete = (id: string) => {
-    dispatch(EditingQuestionId(id));
-    reset();
-    openModal("DeleteQuestion");
-  };
+    dispatch(EditingQuestionId(id))
+    reset()
+    openModal('DeleteQuestion')
+  }
   const handleAddNew = () => {
-    dispatch(RemoveQuestionId());
-    openModal("AddQuestion");
-  };
+    dispatch(RemoveQuestionId())
+    openModal('AddQuestion')
+  }
   return (
     <>
       {/* <div>
@@ -159,28 +152,30 @@ export default function QuestionList() {
       </div> */}
 
       <div className="overflow-x-auto rounded-lg shadow">
-  <div className="mb-4 flex items-center justify-between px-1.5">
-    <h2 className="text-2xl font-bold">Bank Of Question</h2>
-    <button
-      onClick={handleAddNew}
-      className="flex items-center rounded-full border px-4 py-2 hover:bg-gray-100"
-    >
-      <FaPlusCircle className="mr-2 text-xl text-black" />
-      <span className="text-base font-semibold">Add Question</span>
-    </button>
-  </div>
+        <div className="mb-4 flex items-center justify-between px-1.5">
+          <h2 className="text-2xl font-bold">Bank Of Question</h2>
+          <button
+            onClick={handleAddNew}
+            className="flex items-center rounded-full border px-4 py-2 hover:bg-gray-100"
+          >
+            <FaPlusCircle className="mr-2 text-xl text-black" />
+            <span className="text-base font-semibold">Add Question</span>
+          </button>
+        </div>
 
-  <table className="min-w-full table-fixed divide-y divide-gray-300 text-left text-sm">
-    <thead className="bg-gray-800 text-white">
-      <tr>
-        <th className="w-1/4 px-4 py-3 font-semibold">Title</th>
-        <th className="w-1/4 px-4 py-3 font-semibold">Description</th>
-        <th className="w-1/6 px-4 py-3 font-semibold">Difficulty</th>
-        <th className="w-1/6 px-4 py-3 font-semibold">Type</th>
-        <th className="w-1/6 px-4 py-3 font-semibold text-center">Actions</th>
-      </tr>
-    </thead>
-    {/* <tbody className="divide-y divide-gray-200 bg-white">
+        <table className="min-w-full table-fixed divide-y divide-gray-300 text-left text-sm">
+          <thead className="bg-gray-800 text-white">
+            <tr>
+              <th className="w-1/4 px-4 py-3 font-semibold">Title</th>
+              <th className="w-1/4 px-4 py-3 font-semibold">Description</th>
+              <th className="w-1/6 px-4 py-3 font-semibold">Difficulty</th>
+              <th className="w-1/6 px-4 py-3 font-semibold">Type</th>
+              <th className="w-1/6 px-4 py-3 font-semibold text-center">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          {/* <tbody className="divide-y divide-gray-200 bg-white">
       {isError && (
         <tr>
           <td colSpan={5} className="px-4 py-4 text-center text-red-500">
@@ -230,107 +225,109 @@ export default function QuestionList() {
           </tr>
         ))}
     </tbody> */}
-    <tbody className="divide-y divide-gray-200 bg-white">
-  {isError && (
-    <tr>
-      <td colSpan={5} className="px-4 py-4 text-center text-red-500">
-        Something went wrong! Could not get questions
-      </td>
-    </tr>
-  )}
-  {isLoading && (
-    <tr>
-      <td colSpan={5} className="px-4 py-6 text-center">
-        <Spinner size="size-12" />
-      </td>
-    </tr>
-  )}
-  {Questions &&
-    Questions.map((ques) => {
-      const difficultyColor =
-        ques.difficulty.toLowerCase() === "easy"
-          ? "bg-green-100 text-green-800"
-          : ques.difficulty.toLowerCase() === "medium"
-          ? "bg-orange-100 text-orange-800"
-          : "bg-red-100 text-red-800";
+          <tbody className="divide-y divide-gray-200 bg-white">
+            {isError && (
+              <tr>
+                <td colSpan={5} className="px-4 py-4 text-center text-red-500">
+                  Something went wrong! Could not get questions
+                </td>
+              </tr>
+            )}
+            {isLoading && (
+              <tr>
+                <td colSpan={5} className="px-4 py-6 text-center">
+                  <Spinner size="size-12" />
+                </td>
+              </tr>
+            )}
+            {Questions &&
+              Questions.map((ques) => {
+                const difficultyColor =
+                  ques.difficulty.toLowerCase() === 'easy'
+                    ? 'bg-green-100 text-green-800'
+                    : ques.difficulty.toLowerCase() === 'medium'
+                    ? 'bg-orange-100 text-orange-800'
+                    : 'bg-red-100 text-red-800'
 
-      return (
-        <tr key={ques._id} className="hover:bg-gray-50">
-          <td className="px-4 py-3 align-top break-words">{ques.title}</td>
-          <td className="px-4 py-3 align-top break-words">{ques.description}</td>
+                return (
+                  <tr key={ques._id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 align-top break-words">
+                      {ques.title}
+                    </td>
+                    <td className="px-4 py-3 align-top break-words">
+                      {ques.description}
+                    </td>
 
-          {/* Difficulty with badge */}
-          <td className="px-4 py-3 ">
-            <span
-              className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${difficultyColor}`}
-            >
-              {ques.difficulty}
-            </span>
-          </td>
+                    {/* Difficulty with badge */}
+                    <td className="px-4 py-3 ">
+                      <span
+                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${difficultyColor}`}
+                      >
+                        {ques.difficulty}
+                      </span>
+                    </td>
 
-          {/* Type badge or plain */}
-          <td className="px-4 py-3 ">
-            <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">
-              {ques.type}
-            </span>
-          </td>
+                    {/* Type badge or plain */}
+                    <td className="px-4 py-3 ">
+                      <span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">
+                        {ques.type}
+                      </span>
+                    </td>
 
-          {/* Actions */}
-          <td className="px-4 py-3">
-            <div className="flex justify-center items-center gap-4">
-  {/* View Button */}
-  <div className="relative group cursor-pointer">
-    <button
-      onClick={() => handleViewQuestion(ques._id)}
-      className="text-green-600 hover:text-green-800"
-    >
-      <FaEye className="text-2xl cursor-pointer" />
-    </button>
-    <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
-      View
-    </span>
-  </div>
+                    {/* Actions */}
+                    <td className="px-4 py-3">
+                      <div className="flex justify-center items-center gap-4">
+                        {/* View Button */}
+                        <div className="relative group cursor-pointer">
+                          <button
+                            onClick={() => handleViewQuestion(ques._id)}
+                            className="text-green-600 hover:text-green-800"
+                          >
+                            <FaEye className="text-2xl cursor-pointer" />
+                          </button>
+                          <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
+                            View
+                          </span>
+                        </div>
 
-  {/* Edit Button */}
-  <div className="relative group cursor-pointer">
-    <button
-      onClick={() => handleEditQuestion(ques._id)}
-      className="text-gray-600 hover:text-gray-800"
-    >
-      <FaEdit className="text-2xl cursor-pointer" />
-    </button>
-    <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
-      Edit
-    </span>
-  </div>
+                        {/* Edit Button */}
+                        <div className="relative group cursor-pointer">
+                          <button
+                            onClick={() => handleEditQuestion(ques._id)}
+                            className="text-gray-600 hover:text-gray-800"
+                          >
+                            <FaEdit className="text-2xl cursor-pointer" />
+                          </button>
+                          <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
+                            Edit
+                          </span>
+                        </div>
 
-  {/* Delete Button */}
-  <div className="relative group cursor-pointer">
-    <button
-      onClick={() => handleViewDelete(ques._id)}
-      className="text-red-600 hover:text-red-800"
-    >
-      <FaTrashAlt className="text-2xl cursor-pointer" />
-    </button>
-    <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
-      Delete
-    </span>
-  </div>
-</div>
+                        {/* Delete Button */}
+                        <div className="relative group cursor-pointer">
+                          <button
+                            onClick={() => handleViewDelete(ques._id)}
+                            className="text-red-600 hover:text-red-800"
+                          >
+                            <FaTrashAlt className="text-2xl cursor-pointer" />
+                          </button>
+                          <span className="absolute bottom-full mb-2 hidden rounded bg-gray-800 px-2 py-1 text-xs text-white group-hover:block whitespace-nowrap">
+                            Delete
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+          </tbody>
+        </table>
+      </div>
 
-          </td>
-        </tr>
-      );
-    })}
-</tbody>
-
-  </table>
-</div>
-
-      {isOpen("AddQuestion") && (
+      {isOpen('AddQuestion') && (
         <AddUpdateModal
           closeModal={closeModal}
-          header={QuestionId ? "Updata Question" : "Create Question"}
+          header={QuestionId ? 'Updata Question' : 'Create Question'}
           openModal={openModal}
         >
           <QuestionData
@@ -341,18 +338,16 @@ export default function QuestionList() {
         </AddUpdateModal>
       )}
 
-      {isOpen("DeleteQuestion") && QuestionId && (
-  <DeleteConfirmation
-    isOpen={true}
-    title="Delete Question"
-    message={`Are you sure you want to delete the question "${viewQuestion[0]?.title}"?`}
-    onConfirm={() => handleDeleteQuestion(QuestionId)}
-    onCancel={closeModal}
-  />
-)}
+      {isOpen('DeleteQuestion') && QuestionId && (
+        <DeleteModal
+          isOpen={openModal}
+          onClose={closeModal}
+          onConfirm={() => handleDeleteQuestion(QuestionId)}
+          status={status}
+        />
+      )}
 
-
-      {isOpen("ViewQuestion") && (
+      {isOpen('ViewQuestion') && (
         <ViewModal
           isOpen={openModal}
           onClose={closeModal}
@@ -362,5 +357,5 @@ export default function QuestionList() {
         </ViewModal>
       )}
     </>
-  );
+  )
 }
