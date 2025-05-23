@@ -92,7 +92,6 @@ export default function StudentControls({
         </button>
       </div>
               
-        {/* <AddButton text="Add Student" /> */}
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ import {
 import { useSelector } from 'react-redux'
 import { User } from '../../../interfaces/authInterfaces'
 import { RootState } from '../../../Store/Store/Store'
+import { LogoText } from '../../../ui/Logo'
 
 const SideBar = () => {
   const location = useLocation()
@@ -69,7 +70,7 @@ const SideBar = () => {
     },
     {
       title: 'Results',
-      path: '/results',
+      path: 'results',
       icon: <FiBarChart2 size={24} />,
       active: 'results',
       roles: ['Instructor', 'Student'],
@@ -85,7 +86,7 @@ const SideBar = () => {
   // };
 
   return (
-    <div className="h-screen">
+    <div className="h-full sticky">
       <Sidebar
         collapsed={collapsed}
         collapsedWidth="100px"
@@ -102,7 +103,7 @@ const SideBar = () => {
             onClick={toggleSidebar}
             className="border border-gray-300 p-2 hover:bg-gray-100 cursor-pointer"
           >
-            {collapsed ? '' : ''}
+            {collapsed ? '' : <LogoText color='black' />}
           </MenuItem>
 
           {/* Main Menu Items */}

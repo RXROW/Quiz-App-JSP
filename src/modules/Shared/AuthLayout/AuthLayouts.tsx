@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import Logo from "../../../assets/Logo-white.png";
 import authImage from "../../../assets/AuthLogo.png";
 import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
+import Logon from "../../../ui/Logo";
 
  function AuthLayouts() {
 
@@ -41,7 +42,8 @@ import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
         {/* Left Section */}
 
         <div className="auth-title p-12 lg:col-span-3 custom:col-span-12">
-           <img src={Logo} alt="Logo" className="w-48 pb-12 " />
+           {/* <img src={Logo} alt="Logo" className="w-48 pb-12 " /> */}
+           <Logon className="w-48 pb-12" size="large" />
            
            <h1 className="text-4xl font-bold pb-12">
            {getPageTitle()}

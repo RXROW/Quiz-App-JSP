@@ -9,6 +9,7 @@ import NoData from '../../Shared/NoData/NoData';
 import { useDeleteStudentMutation, useGetAllStudentsQuery } from '../../../Redux/Api/StudentApi';
 import DeleteConfirmation from '../../Shared/DeleteConfirmation/DeleteConfirmation';
 import { toast } from 'react-toastify';
+import Spinner from '../../../ui/Spinner';
 
 
 const columnClasses = {
@@ -71,7 +72,9 @@ const cancelDelete = () => {
 };
 
 
-  if (isLoading) return <PreLoader />;
+  if (isLoading) return <div className="flex items-center justify-center mt-18">
+          <Spinner size="size-12" />
+        </div>;
   if (isError) return <div className="text-center text-red-500">Error loading students.</div>;
 
   const filteredStudents = students.filter((student: any) =>

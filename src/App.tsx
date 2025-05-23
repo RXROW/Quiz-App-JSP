@@ -19,22 +19,25 @@ import Student from "./modules/Instructors/Student/Student";
 import Quizes from "./modules/Instructors/Quizzes/Quizzes";
 import QuestionList from "./modules/Question/QuestionList/QuestionList";
 
+import Results from "./modules/Lerner/Results/Results";
+import AnswerQuiz from "./modules/Instructors/Quizzes/AnswerQuiz";
+
+
 
 
 
 const router = createBrowserRouter([
-
   {
-    path: "/",
+    path: '/',
     element: <AuthLayouts />,
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Login /> },
-      { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
-      { path: "forget-password", element: <ForgotPassword /> },
-      { path: "reset-password", element: <ResetPassword /> },
-      { path: "change-password", element: <ChangePassword /> },
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
+      { path: 'forget-password', element: <ForgotPassword /> },
+      { path: 'reset-password', element: <ResetPassword /> },
+      { path: 'change-password', element: <ChangePassword /> },
     ],
   },
   {
@@ -43,14 +46,16 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Dashboard /> },
-      { path: "quizzes", element: <Quizes /> },
-      { path: "groups", element: <Groups /> },
-      { path: "questions", element: <QuestionList /> },
-      { path: "students", element: <Student /> },
-      
+
+      { path: 'quizzes', element: <Quizes /> },
+      { path: 'groups', element: <Groups /> },
+      { path: 'questions', element: <QuestionList /> },
+      { path: 'students', element: <Student /> },
+      { path: 'results', element: <Results /> },
+      { path: 'quizzes/quiz/:quizId/questions', element: <AnswerQuiz /> },
     ],
-  }
-]);
+  },
+])
 
 const App = () => {
 

@@ -32,8 +32,10 @@ interface QuestionFormData {
   };
 }
 
+
 // export default function QuestionData: React.FC<QuestionDataProps>({ onSuccess, id }) {
 // const QuestionData: React.FC<QuestionDataProps> = ({ onSuccess, id }) => {
+
 export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
   const {
     OptionA,
@@ -45,14 +47,14 @@ export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
     Description,
     type,
     difficulty,
-  } = getValidationRules();
-  const isEditing = Boolean(id);
-  const [createQuestion] = useCreateQuestionMutation();
-  const [updateQuestion] = useUpdateQuestionMutation();
+  } = getValidationRules()
+  const isEditing = Boolean(id)
+  const [createQuestion] = useCreateQuestionMutation()
+  const [updateQuestion] = useUpdateQuestionMutation()
   const { data: selectedQuestion } = useGetQuestionByIdQuery(id, {
     refetchOnMountOrArgChange: true,
     skip: !isEditing,
-  });
+  })
   const {
     register,
     handleSubmit,
@@ -60,37 +62,37 @@ export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: "onChange",
-  });
+    mode: 'onChange',
+  })
   useEffect(() => {
     if (selectedQuestion) {
-      setValue("title", selectedQuestion?.title);
-      setValue("description", selectedQuestion?.description);
-      setValue("options.A", selectedQuestion?.options?.A);
-      setValue("options.B", selectedQuestion?.options?.B);
-      setValue("options.C", selectedQuestion?.options?.C);
-      setValue("options.D", selectedQuestion?.options?.D);
-      setValue("type", selectedQuestion?.type);
-      setValue("answer", selectedQuestion?.answer);
-      setValue("difficulty", selectedQuestion?.difficulty);
+      setValue('title', selectedQuestion?.title)
+      setValue('description', selectedQuestion?.description)
+      setValue('options.A', selectedQuestion?.options?.A)
+      setValue('options.B', selectedQuestion?.options?.B)
+      setValue('options.C', selectedQuestion?.options?.C)
+      setValue('options.D', selectedQuestion?.options?.D)
+      setValue('type', selectedQuestion?.type)
+      setValue('answer', selectedQuestion?.answer)
+      setValue('difficulty', selectedQuestion?.difficulty)
     }
-  }, [selectedQuestion, setValue]);
+  }, [selectedQuestion, setValue])
   const onSubmit = async (data: QuestionFormData) => {
     try {
       if (isEditing) {
-        const response = await updateQuestion({ id, data }).unwrap();
-        toast.success(response.message);
+        const response = await updateQuestion({ id, data }).unwrap()
+        toast.success(response.message)
       } else {
-        const response = await createQuestion(data).unwrap();
-        toast.success(response.message);
+        const response = await createQuestion(data).unwrap()
+        toast.success(response.message)
       }
-    } catch (error:any) {
-      toast.error(error.message);
+    } catch (error: any) {
+      toast.error(error.message)
     } finally {
-      reset();
-      if (onSuccess) onSuccess();
+      reset()
+      if (onSuccess) onSuccess()
     }
-  };
+  }
   return (
     <div>
       <h3 className="my-4 text-2xl font-medium">Details</h3>
@@ -204,7 +206,7 @@ export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
               rules={type}
               placeholderoption="Category"
               type="select"
-              options={["FE", "BE", "DO"]}
+              options={['FE', 'BE', 'DO']}
             />
             {errors?.type && (
               <p className="mt-1 text-sm text-red-500">
@@ -220,7 +222,7 @@ export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
               rules={difficulty}
               placeholderoption="level"
               type="select"
-              options={["easy", "medium", "hard"]}
+              options={['easy', 'medium', 'hard']}
             />
             {/* <button type="submit" className="btn-submit">Submit</button> */}
 
@@ -233,5 +235,5 @@ export default function QuestionData({ onSuccess, id }: QuestionDataProps) {
         </div>
       </form>
     </div>
-  );
+  )
 }

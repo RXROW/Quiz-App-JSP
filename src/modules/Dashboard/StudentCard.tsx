@@ -4,10 +4,31 @@ import { Student, StudentApiResponse } from "../../interfaces/DashboardInterface
 export const StudentCard: React.FC<
   Student & { onView: (student: StudentApiResponse) => void }
 > = ({ name, groupName, avgScore, apiData, onView }) => {
+  
+  const styles = [
+    'adventurer',
+    'adventurer-neutral',
+    'avataaars',
+    'big-ears',
+    'bottts',
+    'croodles',
+    'icons',
+    'identicon',
+    'lorelei',
+    'micah',
+    'miniavs',
+    'open-peeps',
+    'personas',
+    'pixel-art',
+    'thumbs',
+  ]
+
+  
+  const randomStyle = styles[Math.floor(Math.random() * styles.length)]
   return (
     <div className="flex items-center p-3 hover:bg-gray-50">
       <img
-        src={`https://api.dicebear.com/6.x/initials/svg?seed=${name}`}
+        src={`https://api.dicebear.com/6.x/${randomStyle}/svg?seed=${name}`}
         alt={name}
         className="w-10 h-10 rounded-full"
       />
