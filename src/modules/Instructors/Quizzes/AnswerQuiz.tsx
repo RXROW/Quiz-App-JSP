@@ -64,28 +64,88 @@ export default function AnswerQuiz() {
     fetchQuestions()
   }, [quizId])
 
+  // const onSubmit = async (formData: Record<string, string>) => {
+  //   if (!quizId) {
+  //     toast.error('Invalid quiz ID')
+  //     return
+  //   }
+
+  //   const submissionData: SubmitData = {
+  //     answers: Object.entries(formData).map(([questionId, answer]) => ({
+  //       question: questionId,
+  //       answer
+  //     }))
+  //   }
+
+  //   try {
+  //     const submitQuiz= await privateInstance.post(QUIZ.SUBMIT(quizId), submissionData)
+  //     toast.success('Quiz submitted successfully!')
+  //     console.log(submitQuiz)
+  //     navigate('/quiz')
+  //   } catch (error: any) {
+  //     console.error('Failed to submit quiz:', error)
+  //     toast.error(error.response?.data?.message || 'Failed to submit quiz')
+  //   }
+  // }
+
+//   const onSubmit = async (formData: Record<string, string>) => {
+//   if (!quizId) {
+//     toast.error('Invalid quiz ID');
+//     return;
+//   }
+
+//   const submissionData: SubmitData = {
+//     answers: Object.entries(formData).map(([questionId, answer]) => ({
+//       question: questionId,
+//       answer
+//     }))
+//   };
+
+//   try {
+//     const res = await privateInstance.post(QUIZ.SUBMIT(quizId), submissionData);
+//     toast.success('Quiz submitted successfully!');
+//     console.log(res)
+//     const { score, questions } = res.data.data;
+// const total = questions.length;
+// navigate('/dashboard/score', { state: { score, total } });
+
+
+
+//   } catch (error: any) {
+//     console.error('Failed to submit quiz:', error);
+//     toast.error(error.response?.data?.message || 'Failed to submit quiz');
+//   }
+// };
+
   const onSubmit = async (formData: Record<string, string>) => {
-    if (!quizId) {
-      toast.error('Invalid quiz ID')
-      return
-    }
-
-    const submissionData: SubmitData = {
-      answers: Object.entries(formData).map(([questionId, answer]) => ({
-        question: questionId,
-        answer
-      }))
-    }
-
-    try {
-      await privateInstance.post(QUIZ.SUBMIT(quizId), submissionData)
-      toast.success('Quiz submitted successfully!')
-      navigate('/quiz')
-    } catch (error: any) {
-      console.error('Failed to submit quiz:', error)
-      toast.error(error.response?.data?.message || 'Failed to submit quiz')
-    }
+  if (!quizId) {
+    toast.error('Invalid quiz ID');
+    return;
   }
+
+ const submissionData: SubmitData = {
+    answers: Object.entries(formData).map(([questionId, answer]) => ({
+      question: questionId,
+      answer
+    }))
+  };
+
+  try {
+    const res = await privateInstance.post(QUIZ.SUBMIT(quizId), submissionData);
+    toast.success('Quiz submitted successfully!');
+ 
+    console.log(res)
+    const { score, questions } = res.data.data;
+    
+    // Send both score and questions to the Score component
+    navigate('/dashboard/score', { state: { score, questions } });
+
+  } catch (error: any) {
+    console.error('Failed to submit quiz:', error);
+    toast.error(error.response?.data?.message || 'Failed to submit quiz');
+  }
+};
+
 
   const allQuestionsAnswered = questions.every(
     (question) => formValues[question._id]

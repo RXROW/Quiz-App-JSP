@@ -46,8 +46,10 @@ export const FormInput = ({
           {label}
         </label>
         <div className="flex items-center justify-start rounded-lg border border-white bg-black p-2.5">
-          <span className="text-2xl text-white">{getIcon()}</span>
-          {name === 'role' ? (
+
+          <span className="text-2xl text-white me-2">{getIcon()}</span>
+          {name === "role" ? (
+
             <select
               id={name}
               className="w-full border-0 bg-black text-white"
@@ -62,25 +64,16 @@ export const FormInput = ({
               </option>
             </select>
           ) : (
-            <>
-              <input
-                id={name}
-                type={effectiveType}
-                placeholder={placeholder}
-                className="flex-1 border-0 bg-transparent py-0 text-sm text-white outline-0 placeholder:text-gray-600"
-                {...register(name, rules)}
-                disabled={disabled}
-              />
-              {type === 'password' && (
-                <button
-                  className="text-2xl text-white"
-                  type="button"
-                  onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? <FaEye /> : <FaEyeSlash />}
-                </button>
-              )}
-            </>
+
+            <input
+              id={name}
+              type={type}
+              placeholder={placeholder}
+              className="flex-1 border-0 bg-transparent outline-0 py-1.5 text-sm text-white placeholder:text-gray-600"
+              {...register(name, rules)}
+              disabled={disabled}
+            />
+
           )}
         </div>
         {errors[name] && (

@@ -98,6 +98,7 @@ export default function Quizes() {
       const response = await privateInstance.post(QUIZ.CREATE_QUIZ, formData)
       setCode(response.data.data.code)
       toast.success('Quiz Created Successfully')
+      console.log(response)
       setIsModalOpen(false)
       setIsSecondModalOpen(true)
       resetForm()
