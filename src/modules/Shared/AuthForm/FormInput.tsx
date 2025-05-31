@@ -40,7 +40,7 @@ export const FormInput = ({
           {label}
         </label>
         <div className="flex items-center justify-start rounded-lg border border-white bg-black p-2.5">
-          <span className="text-2xl text-white">{getIcon()}</span>
+          <span className="text-2xl text-white me-2">{getIcon()}</span>
           {name === "role" ? (
             <select
               id={name}
@@ -60,7 +60,7 @@ export const FormInput = ({
               id={name}
               type={type}
               placeholder={placeholder}
-              className="flex-1 border-0 bg-transparent outline-0 py-0 text-sm text-white placeholder:text-gray-600"
+              className="flex-1 border-0 bg-transparent outline-0 py-1.5 text-sm text-white placeholder:text-gray-600"
               {...register(name, rules)}
               disabled={disabled}
             />

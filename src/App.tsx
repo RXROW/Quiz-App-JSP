@@ -21,6 +21,7 @@ import QuestionList from "./modules/Question/QuestionList/QuestionList";
 
 import Results from "./modules/Lerner/Results/Results";
 import AnswerQuiz from "./modules/Instructors/Quizzes/AnswerQuiz";
+import Score from "./modules/Score/Score";
 
 
 
@@ -53,6 +54,9 @@ const router = createBrowserRouter([
       { path: 'students', element: <Student /> },
       { path: 'results', element: <Results /> },
       { path: 'quizzes/quiz/:quizId/questions', element: <AnswerQuiz /> },
+      { path: "score", element: <Score /> } 
+      
+
     ],
   },
 ])

@@ -53,6 +53,8 @@ const Navbar = () => {
         return "Groups";
       case "/dashboard/results":
         return "Results";
+      case "/dashboard/score":
+        return "Your Score";
       default:
         if (location.pathname.startsWith("/dashboard/quizzes/quiz/") && 
             location.pathname.endsWith("/questions")) {

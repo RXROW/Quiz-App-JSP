@@ -38,61 +38,74 @@ const Register: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div className="flex space-x-4">
-        <div className="w-1/2">
+        <div className="w-1/2 relative">
           <label htmlFor="first_name" className="block text-sm font-medium text-white mb-1">
             Your first name
           </label>
+          <span className="absolute left-3 top-[50px] transform -translate-y-1/2 text-white">
+            <i className="fas fa-user text-lg" />
+          </span>
           <input
             id="first_name"
             type="text"
             placeholder="Type your first name"
-            className="bg-black border border-white text-white text-sm rounded-lg w-full p-4"
+            className="bg-black border border-white text-white text-sm rounded-lg w-full p-4 pl-10"
             {...register('first_name', { required: 'First name is required' })}
           />
           {errors.first_name && <p className="text-red-500 text-xs mt-1">{errors.first_name.message}</p>}
         </div>
-        <div className="w-1/2">
+        <div className="w-1/2 relative">
           <label htmlFor="last_name" className="block text-sm font-medium text-white mb-1">
             Your last name
           </label>
+          <span className="absolute left-3 top-[50px] transform -translate-y-1/2 text-white">
+            <i className="fas fa-user text-lg" />
+          </span>
           <input
             id="last_name"
             type="text"
             placeholder="Type your last name"
-            className="bg-black border border-white text-white text-sm rounded-lg w-full p-4"
+            className="bg-black border border-white text-white text-sm rounded-lg w-full p-4 pl-10"
             {...register('last_name', { required: 'Last name is required' })}
           />
           {errors.last_name && <p className="text-red-500 text-xs mt-1">{errors.last_name.message}</p>}
         </div>
       </div>
-      <div>
+      <div className='relative'>
         <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
           Your email address
         </label>
+        <span className="absolute left-3 top-[52px] transform -translate-y-1/2 text-white">
+          <i className="fas fa-envelope text-lg" />
+        </span>
         <input
           id="email"
           type="email"
           placeholder="Type your email"
-          className="bg-black border border-white text-white text-sm rounded-lg w-full p-4"
+          className="bg-black border border-white text-white text-sm rounded-lg w-full p-4 pl-10"
           {...register('email', { required: 'Email is required' })}
         />
         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
       </div>
-      <div>
+      <div className='relative'>
         <label htmlFor="role" className="block text-sm font-medium text-white mb-1">
           Your role
         </label>
+        <span className="absolute left-3 top-[50px] transform -translate-y-1/2 text-white">
+          <i className="fas fa-user-tag text-lg" />
+        </span>
         <select
           id="role"
-          className="bg-black border border-white text-white text-sm rounded-lg w-full p-4"
+          className="bg-black border border-white text-white text-sm rounded-lg w-full p-4 pl-10"
           {...register('role', { 
             required: 'Role is required',
             validate: (value) => ['Instructor', 'Student'].includes(value) || 'Role must be Instructor or Student'
           })}
         >
           <option value="">Choose your role</option>
-          <option value="Student">Student</option>
-          <option value="Instructor">Instructor</option>
+          <option value="Student">🎓 Student</option>
+          <option value="Instructor">👨‍🏫 Instructor</option>
+
         </select>
         {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role.message}</p>}
       </div>

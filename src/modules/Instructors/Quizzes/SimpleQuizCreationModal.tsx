@@ -1,4 +1,5 @@
 import { Group, QuizData } from "../../../interfaces/quizInterfaces";
+import { LogoIcons, LogoText } from "../../../ui/Logo";
 
  
 // Refactor SimpleQuizCreationModal to accept props
@@ -26,8 +27,14 @@ export const SimpleQuizCreationModal = ({
     return (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg w-full max-w-2xl max-h-[90vh] flex flex-col">
-                <div className="p-6 border-b">
+                <div className="p-6 border-b flex justify-between">
+                    <div>
                     <h2 className="text-xl font-bold">Create New Quiz</h2>
+                    </div>
+                    <div className="flex items-center">
+                        <LogoIcons color="black" />
+                        <LogoText color="black" />
+                    </div>
                 </div>
                 <div className="p-6 overflow-y-auto">
                     <form onSubmit={handleSubmit} className="space-y-4">
