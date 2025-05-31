@@ -1,5 +1,6 @@
-import { useFormContext } from "react-hook-form";
-import { FaKey, FaMailBulk, FaIdCard } from "react-icons/fa";
+import { useFormContext } from 'react-hook-form'
+import { FaKey, FaMailBulk, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useState } from 'react'
 export const FormInput = ({
   name,
   label,
@@ -8,28 +9,33 @@ export const FormInput = ({
   placeholder,
   disabled = false,
 }: {
-  name: string;
-  label: string;
-  type: string;
-  rules: any;
-  placeholder: string;
-  disabled?: boolean;
+  name: string
+  label: string
+  type: string
+  rules: any
+  placeholder: string
+  disabled?: boolean
 }) => {
   function getIcon() {
     switch (type) {
-      case "email":
-        return <FaMailBulk />;
-      case "password":
-        return <FaKey />;
-      case "text":
-        return <FaIdCard />;
+      case 'email':
+        return <FaMailBulk />
+      case 'password':
+        return <FaKey />
+      case 'text':
+        return <FaIdCard />
     }
   }
 
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext()
+  const [showPassword, setShowPassword] = useState(false)
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
+  const effectiveType = type === 'password' && showPassword ? 'text' : type
   return (
     <>
       <div className="mb-6">
@@ -40,8 +46,10 @@ export const FormInput = ({
           {label}
         </label>
         <div className="flex items-center justify-start rounded-lg border border-white bg-black p-2.5">
+
           <span className="text-2xl text-white me-2">{getIcon()}</span>
           {name === "role" ? (
+
             <select
               id={name}
               className="w-full border-0 bg-black text-white"
@@ -56,6 +64,7 @@ export const FormInput = ({
               </option>
             </select>
           ) : (
+
             <input
               id={name}
               type={type}
@@ -64,6 +73,7 @@ export const FormInput = ({
               {...register(name, rules)}
               disabled={disabled}
             />
+
           )}
         </div>
         {errors[name] && (
@@ -71,5 +81,5 @@ export const FormInput = ({
         )}
       </div>
     </>
-  );
-};
+  )
+}
