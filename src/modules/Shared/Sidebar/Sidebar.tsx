@@ -101,7 +101,7 @@ const SideBar = () => {
               </div>
             }
             onClick={toggleSidebar}
-            className="border border-gray-300 p-2 hover:bg-gray-100 cursor-pointer"
+            className="border border-gray-300 p-3 hover:bg-gray-100 cursor-pointer"
           >
             {collapsed ? '' : <LogoText color='black' />}
           </MenuItem>

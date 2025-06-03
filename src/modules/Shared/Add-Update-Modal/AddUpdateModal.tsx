@@ -27,7 +27,7 @@ export default function AddUpdateModal({
 }: AddUpdateModalProps) {
   return (
     <>
-      <Modal show={openModal} size="xl" popup className="max-w-[70rem] w-full mx-auto ">
+      <Modal show={openModal} size="5xl" popup className="max-w-[70rem] w-full mx-auto ">
         <div className="ModalHeader border-custom-black flex items-center justify-between border-b-2">
           <h2 className="pl-6 text-xl font-bold">{header}</h2>
           <div className="action flex cursor-pointer">
