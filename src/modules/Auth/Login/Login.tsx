@@ -1,3 +1,4 @@
+
 // import { FormInput } from "../../Shared/AuthForm/FormInput";
 // import ReusableForm from "../../Shared/AuthForm/ReusableForm";
 // import { FormProvider, useForm } from "react-hook-form";
@@ -85,10 +86,12 @@ const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const methods = useForm<LoginData>({
+
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
+
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -143,4 +146,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+
+export default Login
