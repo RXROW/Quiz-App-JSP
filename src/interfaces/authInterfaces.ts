@@ -51,9 +51,9 @@ export interface Student {
 export interface Group {
   _id: string;
   name: string;
-  students: Student[] | string[]; 
+  students: Student[] | string[];
 
-
+}
 export interface User {
   first_name: string;
   last_name: string;
