@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createHashRouter, RouterProvider } from "react-router-dom";
 import NotFound from './modules/Shared/NotFound/NotFound';
 import AuthLayouts from './modules/Shared/AuthLayout/AuthLayouts';
 import Login from './modules/Auth/Login/Login';
@@ -22,7 +22,7 @@ import Score from "./modules/Score/Score";
 import 'react-toastify/dist/ReactToastify.css'
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <AuthLayouts />,
