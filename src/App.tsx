@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import NotFound from './modules/Shared/NotFound/NotFound';
 import AuthLayouts from './modules/Shared/AuthLayout/AuthLayouts';
 import Login from './modules/Auth/Login/Login';
@@ -10,8 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MasterAdminLayout from './modules/Shared/MasterAdminLayout/components/MasterAdminLayout';
 import Dashboard from './modules/Dashboard/Dashboard'; 
-import Groups from "./modules/Instructors/Groups/Groups";
-import Questions from "./modules/Instructors/Questions/Questions";
+import Groups from "./modules/Instructors/Groups/Groups"; 
 import Student from "./modules/Instructors/Student/Student";
 import Quizes from "./modules/Instructors/Quizzes/Quizzes";
 import QuestionList from "./modules/Question/QuestionList/QuestionList";

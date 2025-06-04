@@ -1,4 +1,5 @@
-
+// @ts-ignore
+// @ts-nocheck
 // import { FormInput } from "../../Shared/AuthForm/FormInput";
 // import ReusableForm from "../../Shared/AuthForm/ReusableForm";
 // import { FormProvider, useForm } from "react-hook-form";

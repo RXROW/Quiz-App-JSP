@@ -5,7 +5,7 @@ export const StudentApiSlice = createApi({
   reducerPath: "studentApi",
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, ) => {
       const token = localStorage.getItem("token");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);

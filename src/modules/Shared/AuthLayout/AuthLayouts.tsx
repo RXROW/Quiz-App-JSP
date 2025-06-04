@@ -1,6 +1,5 @@
 
-import { Link, Outlet, useLocation } from "react-router-dom";
-import Logo from "../../../assets/Logo-white.png";
+import { Link, Outlet, useLocation } from "react-router-dom"; 
 import authImage from "../../../assets/AuthLogo.png";
 import { IoPersonSharp, IoPersonAdd } from "react-icons/io5";
 import Logon from "../../../ui/Logo";

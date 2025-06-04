@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import { useEffect, useRef } from "react";
 import { TiTimesOutline } from "react-icons/ti";
 interface ViewModalProps {

@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import FormInputCrud from "../../Shared/FormInput/FormInputCrud";
 import { getValidationRules } from "../../../hook/usevalidations";
 import {

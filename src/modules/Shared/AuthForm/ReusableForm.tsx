@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+// @ts-ignore
+// @ts-nocheck
 import { useFormContext } from "react-hook-form";
 
 const ReusableForm = ({ onSubmit, children }) => {

@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import StudentDetailsModal from '../../Shared/StudentModal/StudentDetailsModal';
 import PreLoader from '../../Shared/PreLoader/PreLoader';

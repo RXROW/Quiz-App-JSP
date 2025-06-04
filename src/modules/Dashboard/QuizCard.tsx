@@ -4,7 +4,7 @@ export const QuizCard: React.FC<Quiz> = ({
   title,
   date,
   time,
-  code,
+ 
   studentCount,
   isActive,
 }) => {

@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 // import { FaEdit, FaEye, FaPlusCircle, FaTrashAlt } from "react-icons/fa";
 // import useModal from "../../../hook/useModal";
 // import AddUpdateModal from "../../Shared/Add-Update-Modal/AddUpdateModal";

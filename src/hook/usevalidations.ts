@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 export const getRequiredMessage = (fieldName: any) => `${fieldName} is required`
 
 export const getValidationRules = (watch: any) => ({

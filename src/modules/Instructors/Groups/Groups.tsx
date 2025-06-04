@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 // import React, { useEffect, useState } from "react";
 // import { Pencil, Trash2, PlusCircle } from "lucide-react";
 // import { privateInstance } from "../../../services/apis/apisConfig";

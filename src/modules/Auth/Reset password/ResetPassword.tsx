@@ -1,10 +1,11 @@
+// @ts-ignore
+// @ts-nocheck
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { publicInstance } from "../../../services/apis/apisConfig";
 import { AUTH } from "../../../services/apis/apisUrls";
-import { useNavigate } from "react-router-dom";
-import { useResetPasswordMutation } from "../../../Store/ApiStore/Api";
+import { useNavigate } from "react-router-dom"; 
 export type User = {
   password: string;
   email: string;

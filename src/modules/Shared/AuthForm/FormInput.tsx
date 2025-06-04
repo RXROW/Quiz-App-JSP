@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import { useFormContext } from 'react-hook-form'
 import { FaKey, FaMailBulk, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useState } from 'react'

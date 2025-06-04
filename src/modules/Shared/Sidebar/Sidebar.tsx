@@ -8,7 +8,7 @@ import {
   FiLayers,
   FiFileText,
   FiBarChart2,
-  FiHelpCircle,
+  
   FiMenu,
 } from 'react-icons/fi'
 import { useSelector } from 'react-redux'

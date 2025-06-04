@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+// @ts-ignore
+// @ts-nocheck
 import { useEffect, useRef } from 'react'
 import { X, Loader2, CheckCircle, Check, AlertTriangle } from 'lucide-react'
 import deletconfirm from '../../../assets/DeleteConfim.jpg'

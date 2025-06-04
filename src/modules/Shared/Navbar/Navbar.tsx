@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import  { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FcAlarmClock, FcEnteringHeavenAlive } from "react-icons/fc";
+import { useDispatch, useSelector } from "react-redux"; 
 import { MdAlarmAdd } from "react-icons/md";
 import { TfiPencilAlt } from "react-icons/tfi";
 import { FaChevronDown } from "react-icons/fa";
-import logo from "../../../assets/Q.svg";
+ 
 import { RootState } from "../../../Store/Store/Store";
 import { logout } from "../../../Store/Authantication/AuthSlice";
 import { HiMenu } from "react-icons/hi";

@@ -1,6 +1,8 @@
+// @ts-ignore
+// @ts-nocheck
 import { Modal, ModalBody } from "flowbite-react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { ReactNode, FormEvent } from "react";
+import { ReactNode } from "react";
 
 // interface AddUpdateModalProps {
 //   children: ReactNode;

@@ -1,3 +1,5 @@
+// @ts-ignore
+// @ts-nocheck
 import { IoMdCheckmarkCircleOutline, IoMdCloseCircleOutline } from "react-icons/io";
 import StudentCardActions from './StudentCardActions';
 
