@@ -78,9 +78,13 @@ export default function StudentModalDetails({
               </div>
 
               <div className="relative w-full">
-                <div className="w-full bg-transparent text-slate-700 text-lg border border-slate-400 rounded-md pr-3 pl-[6rem] py-2">
-                  {student?.group?.name}
-                </div>
+                {/* <div className="w-full bg-transparent text-slate-700 text-lg border border-slate-400 rounded-md pr-3 pl-[6rem] py-2">
+                  {student?.group?.name} || "No Group"
+                </div> */}
+                  <div className="w-full bg-transparent text-slate-700 text-lg border border-slate-400 rounded-md pr-3 pl-[6rem] py-2">
+  {student?.group?.name ? student.group.name : "No Group"}
+</div>
+
                 <label className="font-extrabold absolute left-2 top-[0.5rem] text-black bg-[#FFEDDF] py-1 px-3 rounded-lg">
                   Group:
                 </label>
